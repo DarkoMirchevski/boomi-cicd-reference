@@ -42,9 +42,9 @@ jobs:
       - name: Checkout Boomi CICD Library
         uses: actions/checkout@v4
         with:
-          repository: CHG/boomi-cicd-cli-py
+          repository: DarkoMirchevski/boomi-cicd-reference
           token: ${{ secrets.BOOMI_CICD_LIBRARY_PAT }}
-          path: boomi-cicd-cli-py
+          path: boomi-cicd-reference
 
       - name: Install dependencies
         run: |
