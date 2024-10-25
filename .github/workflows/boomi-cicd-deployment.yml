@@ -100,7 +100,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ${GITHUB_WORKSPACE}/boomi-cicd-cli-py
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           pip install -r ./requirements.txt
 
       - name: Deployment
