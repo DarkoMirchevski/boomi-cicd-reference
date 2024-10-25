@@ -19,7 +19,6 @@ jobs:
       BOOMI_USERNAME: ${{ vars.BOOMI_USERNAME }}
       BOOMI_PASSWORD: ${{ secrets.BOOMI_PASSWORD }}
       BOOMI_RELEASE_FILE: "boomi-cicd-release/boomi_release/release.json"
-      BOOMI_COMPONENT_GIT_URLBOOMI_GITHUB_TOKEN: "https://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@github.com/DarkoMirchevski/boomi-cicd-reference.git"
       
     steps:
 
