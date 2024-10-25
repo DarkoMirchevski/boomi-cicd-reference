@@ -115,7 +115,11 @@ def process_component(
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
-
+    
+    # Log the directory and file path for troubleshooting/TEMPORARY
+    logger.info(f"Process Base Directory: {process_base_dir}")
+    logger.info(f"Component File Path: {process_base_dir}/{component_file_name}")
+    
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
