@@ -70,7 +70,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           export PYTHONPATH=$(pwd)
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
-          python3.11 boomi_cicd/scripts/component_xml_code_quallity.py
+          python3.11 boomi_cicd/scripts/component_xml_code_quality.py
   stage:
     name: Stage Deployment
     runs-on: ubuntu-latest
