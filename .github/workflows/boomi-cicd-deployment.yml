@@ -20,6 +20,8 @@ jobs:
       BOOMI_PASSWORD: ${{ secrets.BOOMI_PASSWORD }}
       BOOMI_RELEASE_FILE: "boomi-cicd-release/boomi_release/release.json"
       BOOMI_COMPONENT_GIT_URL: ${{ secrets.BOOMI_COMPONENT_GIT_URL }}
+      BOOMI_COMPONENT_REPO_NAME: "${{ vars.BOOMI_COMPONENT_REPO_NAME }}"
+      
     steps:
 
       - name: 'Cleanup directory'
