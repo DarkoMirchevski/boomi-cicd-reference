@@ -9,7 +9,7 @@
                {
                   "@type" : "ProcessPropertyValue",
                   "label" : "String",
-                  "key" : "Test",
+                  "key" : "testDynamicProcessProperty",
                   "encryptedValueSet" : false,
                   "useDefault" : false,
                   "value" : "Partialupdates"
