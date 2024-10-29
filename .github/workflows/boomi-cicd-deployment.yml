@@ -21,6 +21,8 @@ jobs:
       BOOMI_RELEASE_FILE: "boomi-cicd-release/boomi_release/release.json"
       BOOMI_COMPONENT_GIT_URL: ${{ secrets.BOOMI_COMPONENT_GIT_URL }}
       BOOMI_COMPONENT_REPO_NAME: "${{ vars.BOOMI_COMPONENT_REPO_NAME }}"
+      BOOMI_ATOM_NAME: "${{ vars.BOOMI_ATOM_NAME }}"
+      BOOMI_ENV_RELEASE_FILE: "${{ vars.BOOMI_ENV_RELEASE_FILE }}"
       
     steps:
 
@@ -59,20 +61,15 @@ jobs:
           export PYTHONPATH=$(pwd)
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
           python3.11 boomi_cicd/scripts/release_pipeline.py
-          
-      - name: Store Components XML
-        run: | 
-          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
-          export PYTHONPATH=$(pwd)
-          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
-          python3.11 boomi_cicd/scripts/component_xml_git.py
 
       - name: Code Quality Check
         run: | 
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           export PYTHONPATH=$(pwd)
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
-          python3.11 boomi_cicd/scripts/component_xml_code_quality.py
+          export BOOMI_ENV_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_ENV_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/environment_extensions_update.py
+          
   stage:
     name: Stage Deployment
     runs-on: ubuntu-latest
