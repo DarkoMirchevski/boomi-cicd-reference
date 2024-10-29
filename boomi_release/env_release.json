@@ -1,24 +1,16 @@
 {
    "@type" : "EnvironmentExtensions",
    "processProperties" : {
-      "@type" : "OverrideProcessProperties",
-      "ProcessProperty" : [
+      "properties" : {
+      "@type" : "",
+      "property" : [
          {
-            "@type" : "OverrideProcessProperty",
-            "ProcessPropertyValue" : [
-               {
-                  "@type" : "ProcessPropertyValue",
-                  "label" : "String",
-                  "key" : "testDynamicProcessProperty",
-                  "encryptedValueSet" : false,
-                  "useDefault" : false,
-                  "value" : "Partialupdates"
-               }
-            ],
-            "id" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
-            "name" : "Test"
+            "@type" : "",
+            "name" : "testDynamicProcessProperty",
+            "value" : "10/10/2020"
          }
       ]
+   }
    },
    "environmentId" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
    "extensionGroupId" : "test",
