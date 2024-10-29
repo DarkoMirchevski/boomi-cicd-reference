@@ -9,18 +9,10 @@
                {
                   "@type" : "ProcessPropertyValue",
                   "label" : "String",
-                  "key" : "new-1355426770730",
+                  "key" : "Test",
                   "encryptedValueSet" : false,
                   "useDefault" : false,
                   "value" : "Partialupdates"
-               },
-               {
-                  "@type" : "ProcessPropertyValue",
-                  "label" : "Password",
-                  "key" : "new-1355426788553",
-                  "value" : "PasswordUpdated",
-                  "encryptedValueSet" : false,
-                  "useDefault" : false
                }
             ],
             "id" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
