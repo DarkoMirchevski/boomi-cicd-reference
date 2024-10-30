@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
-<bns:Component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bns="http://api.platform.boomi.com/" folderFullPath="Training-Darko-Mirchevski/Doubleservice" componentId="cc8a1164-53c5-4a90-a266-cea917c2e7f0" version="1" name="New Web Services Server Connector Operation 2" type="connector-action" subType="wss" createdDate="2024-10-29T11:57:36Z" createdBy="mirchevski.darko@uklo.edu.mk" modifiedDate="2024-10-29T11:57:36Z" modifiedBy="mirchevski.darko@uklo.edu.mk" deleted="false" currentVersion="true" folderName="Doubleservice" folderId="Rjo3MTU1ODE0" branchName="main" branchId="Qjo0MDgyMDA">
+<bns:Component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bns="http://api.platform.boomi.com/" folderFullPath="Training-Darko-Mirchevski/Doubleservice" componentId="cc8a1164-53c5-4a90-a266-cea917c2e7f0" version="2" name="New Web Services Server Connector Operation 2" type="connector-action" subType="wss" createdDate="2024-10-29T11:57:36Z" createdBy="mirchevski.darko@uklo.edu.mk" modifiedDate="2024-10-29T12:50:31Z" modifiedBy="mirchevski.darko@uklo.edu.mk" deleted="false" currentVersion="true" folderName="Doubleservice" folderId="Rjo3MTU1ODE0" branchName="main" branchId="Qjo0MDgyMDA">
   <bns:encryptedValues/>
   <bns:description/>
   <bns:object>
     <Operation xmlns="">
       <Archiving directory="" enabled="false"/>
       <Configuration>
-        <WebServicesServerListenAction inputType="none" objectName="test2" operationType="GET" outputType="none" responseContentType="text/plain"/>
+        <WebServicesServerListenAction inputType="none" objectName="test2" operationType="GET" outputType="singlejson" responseContentType="application/json"/>
       </Configuration>
       <Tracking>
         <TrackedFields/>
