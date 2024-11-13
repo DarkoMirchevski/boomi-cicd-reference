@@ -1,19 +1,16 @@
 {
    "@type" : "EnvironmentExtensions",
-   "processProperties" : {
-      "properties" : {
+   "properties" : {
       "@type" : "",
       "property" : [
          {
             "@type" : "",
             "name" : "testDynamicProcessProperty",
-            "value" : "10/10/2020"
+            "value" : "JSONupdatedViaAPI"
          }
       ]
-   }
    },
    "environmentId" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
-   "extensionGroupId" : "test",
-   "id" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
-   "partial" : true
+   "extensionGroupId" : "",
+   "id" : "8914600e-ac0e-4cb1-9155-4424044afa9c"
 }
