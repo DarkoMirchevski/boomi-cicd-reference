@@ -73,7 +73,7 @@ jobs:
         run: | 
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           export PYTHONPATH=$(pwd)
-          python3.11 boomi_cicd/scripts/component_xml_code_quallity.py
+          python3.11 boomi_cicd/scripts/component_xml_code_quality.py
           
       - name: Update Environment Extensions
         run: | 
