@@ -62,6 +62,13 @@ jobs:
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
           python3.11 boomi_cicd/scripts/automated_testing.py
           
+      - name: Store Components XML
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/component_xml_git.py
+          
       - name: Update Environment Extensions
         run: | 
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
