@@ -116,15 +116,6 @@ def process_component(
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
 
-    # Ensure the directory exists under the correct base directory (boomi_cicd.COMPONENT_REPO_NAME)
-    full_process_base_dir = os.path.join(boomi_cicd.COMPONENT_REPO_NAME, process_base_dir)
-    os.makedirs(full_process_base_dir, exist_ok=True)
-    
-    # Log the directory and file path for troubleshooting/TEMPORARY
-    logger.info(f"Process Base Directory: {full_process_base_dir}")
-    logger.info(f"Component File Path: {full_process_base_dir}/{component_file_name}")
-    
-    # Rename the component file if needed
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
@@ -133,12 +124,11 @@ def process_component(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
         repo.git.mv(
-            os.path.join(boomi_cicd.COMPONENT_REPO_NAME, process_name, component_refs[component_info_id]),
-            os.path.join(boomi_cicd.COMPONENT_REPO_NAME, process_name, component_file_name),
+            f"{process_name}/{component_refs[component_info_id]}",
+            f"{process_name}/{component_file_name}",
         )
 
-    # Write the component XML file under the correct directory
-    with open(os.path.join(full_process_base_dir, component_file_name), "w") as f:
+    with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
     component_refs[component_info_id] = component_file_name
