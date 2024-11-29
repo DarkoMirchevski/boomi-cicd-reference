@@ -22,7 +22,12 @@ def process_git_release(repo, file_components, release):
     component_id = release["componentId"]
     process_name = release["processName"]
     package_version = release["packageVersion"]
-    process_base_dir = f"{boomi_cicd.COMPONENT_REPO_NAME}/{process_name}"
+
+    
+    # Define the parent folder for all components
+    parent_folder = "Components"
+    # Update the base directory to include the parent folder
+    process_base_dir = f"{parent_folder}/{boomi_cicd.COMPONENT_REPO_NAME}/{process_name}"
 
     # Check if the packaged component's name has changed.
     rename_component_folder(repo, file_components, component_id, process_name)
