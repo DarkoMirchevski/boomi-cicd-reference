@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<bns:Component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bns="http://api.platform.boomi.com/" folderFullPath="Training-Darko-Mirchevski/Doubleservice" componentId="cc01e12f-1cd2-4036-ae2e-0a3a62ee7c5a" version="7" name="sub2" type="process" createdDate="2024-10-29T11:59:00Z" createdBy="mirchevski.darko@uklo.edu.mk" modifiedDate="2024-11-27T11:51:11Z" modifiedBy="mirchevski.darko@uklo.edu.mk" deleted="false" currentVersion="true" folderName="Doubleservice" folderId="Rjo3MTU1ODE0" branchName="main" branchId="Qjo0MDgyMDA">
+  <bns:encryptedValues/>
+  <bns:description/>
+  <bns:object>
+    <process xmlns="" allowSimultaneous="false" enableUserLog="false" processLogOnErrorOnly="false" purgeDataImmediately="false" updateRunDates="false" workload="general">
+      <shapes>
+        <shape image="start" name="shape1" shapetype="start" userlabel="" x="96.0" y="94.0">
+          <configuration>
+            <passthroughaction/>
+          </configuration>
+          <dragpoints>
+            <dragpoint name="shape1.dragpoint1" toShape="shape2" x="240.0" y="104.0"/>
+          </dragpoints>
+        </shape>
+        <shape image="message_icon" name="shape2" shapetype="message" userlabel="`" x="256.0" y="96.0">
+          <configuration>
+            <message combined="false">
+              <msgTxt>'{
+&quot;type&quot;: &quot;company&quot;,
+&quot;name&quot;: &quot;Company 2&quot;,
+&quot;location&quot;: {
+&quot;state&quot;: &quot;SS&quot;,
+&quot;country&quot;: &quot;USA&quot;
+}
+}'</msgTxt>
+              <msgParameters/>
+            </message>
+          </configuration>
+          <dragpoints>
+            <dragpoint name="shape2.dragpoint1" toShape="shape3" x="384.0" y="104.0"/>
+          </dragpoints>
+        </shape>
+        <shape image="returndocuments_icon" name="shape3" shapetype="returndocuments" userlabel="" x="400.0" y="96.0">
+          <configuration>
+            <returndocuments label=""/>
+          </configuration>
+          <dragpoints/>
+        </shape>
+      </shapes>
+    </process>
+  </bns:object>
+  <bns:processOverrides/>
+</bns:Component>
