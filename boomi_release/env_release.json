@@ -1,6 +1,17 @@
 {
+   "@type" : "EnvironmentExtensions",
+   "properties" : {
+      "@type" : "",
+      "property" : [
+         {
+            "@type" : "",
+            "name" : "testDynamicProcessProperty",
+            "value" : "GithubUpdated"
+         }
+      ]
+   },
    "environmentId" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
    "extensionGroupId" : "",
    "id" : "8914600e-ac0e-4cb1-9155-4424044afa9c",
-   "partial" : false
+   "partial" : true
 }
