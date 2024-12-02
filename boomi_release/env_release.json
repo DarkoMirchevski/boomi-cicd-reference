@@ -6,7 +6,7 @@
          {
             "@type" : "",
             "name" : "testDynamicProcessProperty",
-            "value" : "JSONPropertyUpdatedViaAPIGithub"
+            "value" : "test"
          }
       ]
    },
