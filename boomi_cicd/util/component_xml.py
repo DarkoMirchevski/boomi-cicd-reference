@@ -115,7 +115,11 @@ def process_component(
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
-
+    
+    # Ensure process directory exists in the GitHub repo
+    process_dir_path = os.path.join(process_base_dir, process_name)
+    os.makedirs(process_dir_path, exist_ok=True)
+    
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
