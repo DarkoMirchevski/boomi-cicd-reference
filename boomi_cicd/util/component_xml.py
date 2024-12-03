@@ -119,7 +119,9 @@ def process_component(
     # Ensure process directory exists in the GitHub repo
     process_dir_path = os.path.join(process_base_dir, process_name)
     os.makedirs(process_dir_path, exist_ok=True)
-    
+    logger.info(
+            f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}"
+        )
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
