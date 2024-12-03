@@ -8,6 +8,14 @@
       "listenerStatus": "RUNNING",
       "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
       "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
+    },{
+      "processName": "Test1",
+      "packageVersion": "11-27-2024-v3",
+      "componentId": "047c7843-d3ca-45a9-af31-e9e27ed1e186",
+      "notes": "Github note proccess with test cases",
+      "listenerStatus": "RUNNING",
+      "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
+      "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
     }
   ]
 }
