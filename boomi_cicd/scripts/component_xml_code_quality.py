@@ -1,6 +1,7 @@
 import os
 
 import boomi_cicd
+from boomi_cicd import logger
 
 from lxml import etree
 
