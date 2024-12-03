@@ -86,3 +86,6 @@ for root, _, filenames in os.walk(base_folder):
                         print_report_row(row)
 
 f.close()
+
+with open(f"{base_folder}/report.md", "r") as report_file:
+    print(report_file.read())
