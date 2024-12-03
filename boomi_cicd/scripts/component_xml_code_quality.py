@@ -49,7 +49,8 @@ for root, _, filenames in os.walk(base_folder):
             component_name = component_root.attrib["name"]
             component_version = component_root.attrib["version"]
             component_type = component_root.attrib["type"]
-
+            #TODO
+            logger.info(f"component_file: {component_file}") 
             for i in range(1, rules_count + 1):
                 xpath = f"/profile/rules/rule[{i}]/parameters/parameter[key='expression']/value"
                 expressions = sonar_rules.xpath(xpath)
