@@ -22,8 +22,8 @@ def process_git_release(repo, file_components, release):
     component_id = release["componentId"]
     process_name = release["processName"]
     package_version = release["packageVersion"]
-    process_base_dir = release["folderFullPath"]
-    logger.info(f"process_base_dir from Release.json: {process_base_dir}")    
+    process_base_dir = f"{boomi_cicd.COMPONENT_REPO_NAME}/{process_name}"
+    logger.info(f"process_base_dir: {process_base_dir}")    
     # Check if the packaged component's name has changed.
     rename_component_folder(repo, file_components, component_id, process_name)
 
@@ -112,8 +112,8 @@ def get_component_info_from_manifest(packaged_manifest):
 def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
-    # Append "/das" to process_base_dir
-    #process_base_dir = os.path.join(process_base_dir, "das")
+    #Append "/das" to process_base_dir
+    process_base_dir = os.path.join(process_base_dir, "das")
     
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
