@@ -23,7 +23,7 @@ def process_git_release(repo, file_components, release):
     process_name = release["processName"]
     package_version = release["packageVersion"]
     process_base_dir = release["folderFullPath"]
-
+    logger.info(f"process_base_dir from Release.json: {process_base_dir}")    
     # Check if the packaged component's name has changed.
     rename_component_folder(repo, file_components, component_id, process_name)
 
