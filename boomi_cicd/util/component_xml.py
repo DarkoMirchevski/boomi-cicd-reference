@@ -22,7 +22,7 @@ def process_git_release(repo, file_components, release):
     component_id = release["componentId"]
     process_name = release["processName"]
     package_version = release["packageVersion"]
-    process_base_dir = f"Das/Test2/das/tas"
+    process_base_dir = f"Das/Training-Darko-Mirchevski/Doubleservice"
     #process_base_dir = f"{boomi_cicd.COMPONENT_REPO_NAME}/{process_name}"
     #process_base_dir = os.path.join(process_base_dir, "das")
     logger.info(f"process_base_dir: {process_base_dir}")    
