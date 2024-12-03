@@ -112,6 +112,9 @@ def get_component_info_from_manifest(packaged_manifest):
 def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
+    # Append "/das" to process_base_dir
+    process_base_dir = os.path.join(process_base_dir, "das")
+    
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
