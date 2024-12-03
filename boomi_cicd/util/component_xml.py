@@ -112,6 +112,9 @@ def get_component_info_from_manifest(packaged_manifest):
 def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
+    logger.info(
+            f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
+        )
     #Append "/das" to process_base_dir
     process_base_dir = os.path.join(process_base_dir, "das")
     
