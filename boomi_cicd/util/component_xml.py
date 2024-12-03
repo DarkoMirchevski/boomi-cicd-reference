@@ -116,7 +116,7 @@ def process_component(
             f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
         )
     #Append "/das" to process_base_dir
-    process_base_dir = os.path.join(process_base_dir, "das")
+    #process_base_dir = os.path.join(process_base_dir, "das")
     
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
