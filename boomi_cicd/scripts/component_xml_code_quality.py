@@ -119,6 +119,6 @@ def commit_and_push_file(repo_path, file_path, commit_message="Updated report.md
         logger.error(f"An error occurred during commit and push: {e}")
         raise
 
-repo_path = "/Das/report"  # Path to your local Git repository
+repo_path = "ComponentsXML"  # Path to your local Git repository
 commit_message = "Updated the report.md with the latest results"
 commit_and_push_file(repo_path, report_path, commit_message)
