@@ -3,6 +3,8 @@ import boomi_cicd
 from boomi_cicd import logger
 from lxml import etree
 import subprocess
+from git import Repo
+from boomi_cicd import logger
 
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
@@ -88,14 +90,35 @@ with open(report_path, "r") as report_file:
     print(report_file.read())
 
 # GitHub integration
-def commit_to_github(file_path, message):
-    try:
-        subprocess.run(["git", "add", file_path], check=True)
-        subprocess.run(["git", "commit", "-m", message], check=True)
-        subprocess.run(["git", "push"], check=True)
-        logger.info("Report successfully committed and pushed to GitHub.")
-    except subprocess.CalledProcessError as e:
-        logger.error(f"GitHub commit failed: {e}")
+def commit_and_push_file(repo_path, file_path, commit_message="Updated report.md"):
+    """
+    Commit and push a single file to the GitHub repository.
 
-commit_message = "Add Packaged Components Code Quality Report"
-commit_to_github(report_path, commit_message)
+    :param repo_path: Path to the local repository.
+    :param file_path: Path to the file to commit, relative to the repository root.
+    :param commit_message: Commit message. Defaults to "Updated report.md".
+    :return: None
+    """
+    try:
+        # Open the repository
+        repo = Repo(repo_path)
+        
+        # Stage the specific file
+        repo.git.add(file_path)
+        
+        # Create a commit
+        logger.info(f"Committing changes with message: {commit_message}")
+        repo.index.commit(commit_message)
+        
+        # Push changes to the remote repository
+        origin = repo.remote(name="origin")
+        logger.info(f"Pushing changes to the remote repository: {origin.url}")
+        origin.push()
+        
+    except Exception as e:
+        logger.error(f"An error occurred during commit and push: {e}")
+        raise
+
+repo_path = "/Das/report"  # Path to your local Git repository
+commit_message = "Updated the report.md with the latest results"
+commit_and_push_file(repo_path, report_path, commit_message)
