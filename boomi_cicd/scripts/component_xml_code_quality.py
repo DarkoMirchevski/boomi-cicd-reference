@@ -1,48 +1,8 @@
 import os
-
 import boomi_cicd
 from boomi_cicd import logger
-from git import Repo  # Import GitPython for managing the repository
 from lxml import etree
-
-# Added START
-def add_report_to_repository(repo_path, report_file, commit_message="Added report.md"):
-    """
-    Add the report.md file to the GitHub repository.
-    
-    :param repo_path: Path to the cloned Git repository.
-    :param report_file: Path to the report.md file.
-    :param commit_message: Commit message for the changes.
-    """
-    try:
-        # Initialize the repository object
-        repo = Repo(repo_path)
-        
-        # Add the report.md file
-        repo.index.add([report_file])
-        logger.info(f"Staged {report_file} for commit.")
-        
-        # Commit the changes
-        repo.index.commit(commit_message)
-        logger.info(f"Committed changes with message: {commit_message}")
-        
-        # Push to the remote repository
-        repo.remote("origin").push()
-        logger.info("Changes pushed to the repository.")
-        
-    except Exception as e:
-        logger.error(f"Failed to add report.md to the repository: {e}")
-
-
-# Main script logic
-base_folder = boomi_cicd.COMPONENT_REPO_NAME  # Base folder for the repository
-report_file = os.path.join(base_folder, "report.md")  # Path to the generated report.md
-
-# Generate the report file (reuse the provided logic)
-f = open(report_file, "w")
-print_report_head()
-
-#Added END
+import subprocess
 
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
@@ -70,7 +30,8 @@ def print_report_row(row_local):
 
 # Open file for report.
 base_folder = boomi_cicd.COMPONENT_REPO_NAME
-f = open(f"{base_folder}/report.md", "w")
+report_path = f"{base_folder}/report.md"
+f = open(report_path, "w")
 
 sonar_rules = etree.parse(boomi_cicd.SONAR_RULES_FILE)
 
@@ -87,8 +48,7 @@ for root, _, filenames in os.walk(base_folder):
             component_name = component_root.attrib["name"]
             component_version = component_root.attrib["version"]
             component_type = component_root.attrib["type"]
-            #TODO
-            logger.info(f"component_file: {component_file}") 
+            logger.info(f"component_file: {component_file}")
             for i in range(1, rules_count + 1):
                 xpath = f"/profile/rules/rule[{i}]/parameters/parameter[key='expression']/value"
                 expressions = sonar_rules.xpath(xpath)
@@ -109,7 +69,6 @@ for root, _, filenames in os.walk(base_folder):
                             f"/profile/rules/rule[{i}]/description/text()"
                         )[0]
                         h += 1
-                        # TODO: Make Component Name a link to the component XML in the report
                         row = [
                             str(h),
                             f"[{component_name}]({component_file})",
@@ -123,8 +82,20 @@ for root, _, filenames in os.walk(base_folder):
                         print_report_row(row)
 
 f.close()
-# Add the report to the repository
-add_report_to_repository(base_folder, report_file)
 
-with open(f"{base_folder}/report.md", "r") as report_file:
+# Print the report to the console
+with open(report_path, "r") as report_file:
     print(report_file.read())
+
+# GitHub integration
+def commit_to_github(file_path, message):
+    try:
+        subprocess.run(["git", "add", file_path], check=True)
+        subprocess.run(["git", "commit", "-m", message], check=True)
+        subprocess.run(["git", "push"], check=True)
+        logger.info("Report successfully committed and pushed to GitHub.")
+    except subprocess.CalledProcessError as e:
+        logger.error(f"GitHub commit failed: {e}")
+
+commit_message = "Add Packaged Components Code Quality Report"
+commit_to_github(report_path, commit_message)
