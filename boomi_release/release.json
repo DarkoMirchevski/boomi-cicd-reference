@@ -2,20 +2,12 @@
   "pipelines": [
     {
       "processName": "Test2",
-      "packageVersion": "11-27-2024-v5",
+      "packageVersion": "11-27-2024-v6",
       "componentId": "37c02881-94c2-4217-b133-8a8d23e2b78a",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
       "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
       "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
-    },{
-      "processName": "New Process",
-      "packageVersion": "testv1",
-      "componentId": "b3bbedee-0e32-4466-85ce-b3dfb687b892",
-      "notes": "Github note proccess with test cases",
-      "listenerStatus": "RUNNING",
-      "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
-      "folderFullPath": "Training-Darko-Mirchevski/SnapLogic Tasks/Task1"
     }
   ]
 }
