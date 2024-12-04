@@ -2,10 +2,47 @@ import os
 
 import boomi_cicd
 from boomi_cicd import logger
-
+from git import Repo  # Import GitPython for managing the repository
 from lxml import etree
 
-# TODO: Clean up into smaller functions
+# Added START
+def add_report_to_repository(repo_path, report_file, commit_message="Added report.md"):
+    """
+    Add the report.md file to the GitHub repository.
+    
+    :param repo_path: Path to the cloned Git repository.
+    :param report_file: Path to the report.md file.
+    :param commit_message: Commit message for the changes.
+    """
+    try:
+        # Initialize the repository object
+        repo = Repo(repo_path)
+        
+        # Add the report.md file
+        repo.index.add([report_file])
+        logger.info(f"Staged {report_file} for commit.")
+        
+        # Commit the changes
+        repo.index.commit(commit_message)
+        logger.info(f"Committed changes with message: {commit_message}")
+        
+        # Push to the remote repository
+        repo.remote("origin").push()
+        logger.info("Changes pushed to the repository.")
+        
+    except Exception as e:
+        logger.error(f"Failed to add report.md to the repository: {e}")
+
+
+# Main script logic
+base_folder = boomi_cicd.COMPONENT_REPO_NAME  # Base folder for the repository
+report_file = os.path.join(base_folder, "report.md")  # Path to the generated report.md
+
+# Generate the report file (reuse the provided logic)
+f = open(report_file, "w")
+print_report_head()
+
+#Added END
 
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
@@ -86,6 +123,8 @@ for root, _, filenames in os.walk(base_folder):
                         print_report_row(row)
 
 f.close()
+# Add the report to the repository
+add_report_to_repository(base_folder, report_file)
 
 with open(f"{base_folder}/report.md", "r") as report_file:
     print(report_file.read())
