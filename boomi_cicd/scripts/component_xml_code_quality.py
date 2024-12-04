@@ -1,10 +1,10 @@
 import os
+
 import boomi_cicd
-from boomi_cicd import logger
+
 from lxml import etree
-import subprocess
-from git import Repo
-from boomi_cicd import logger
+
+# TODO: Clean up into smaller functions
 
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
@@ -32,8 +32,7 @@ def print_report_row(row_local):
 
 # Open file for report.
 base_folder = boomi_cicd.COMPONENT_REPO_NAME
-report_path = f"{base_folder}/report.md"
-f = open(report_path, "w")
+f = open(f"{base_folder}/report.md", "w")
 
 sonar_rules = etree.parse(boomi_cicd.SONAR_RULES_FILE)
 
@@ -50,7 +49,7 @@ for root, _, filenames in os.walk(base_folder):
             component_name = component_root.attrib["name"]
             component_version = component_root.attrib["version"]
             component_type = component_root.attrib["type"]
-            logger.info(f"component_file: {component_file}")
+
             for i in range(1, rules_count + 1):
                 xpath = f"/profile/rules/rule[{i}]/parameters/parameter[key='expression']/value"
                 expressions = sonar_rules.xpath(xpath)
@@ -71,6 +70,7 @@ for root, _, filenames in os.walk(base_folder):
                             f"/profile/rules/rule[{i}]/description/text()"
                         )[0]
                         h += 1
+                        # TODO: Make Component Name a link to the component XML in the report
                         row = [
                             str(h),
                             f"[{component_name}]({component_file})",
@@ -85,40 +85,34 @@ for root, _, filenames in os.walk(base_folder):
 
 f.close()
 
-# Print the report to the console
-with open(report_path, "r") as report_file:
-    print(report_file.read())
-
-# GitHub integration
-def commit_and_push_file(repo_path, file_path, commit_message="Updated report.md"):
+def clone_repository():
     """
-    Commit and push a single file to the GitHub repository.
-
-    :param repo_path: Path to the local repository.
-    :param file_path: Path to the file to commit, relative to the repository root.
-    :param commit_message: Commit message. Defaults to "Updated report.md".
-    :return: None
+    Clone the component repository.
+    The function will import GitPython to avoid the need to install git unless the component_xml_git.py script is used.
+    :return: Repo object
     """
-    try:
-        # Open the repository
-        repo = Repo(repo_path)
-        
-        # Stage the specific file
-        repo.git.add(file_path)
-        
-        # Create a commit
-        logger.info(f"Committing changes with message: {commit_message}")
-        repo.index.commit(commit_message)
-        
-        # Push changes to the remote repository
-        origin = repo.remote(name="origin")
-        logger.info(f"Pushing changes to the remote repository: {origin.url}")
-        origin.push()
-        
-    except Exception as e:
-        logger.error(f"An error occurred during commit and push: {e}")
-        raise
+    # Lazy load git.
+    # GitPython requires git to be installed.
+    # This allows for users to not install git unless the component_xml_git.py script is used.
+    from git import Repo
 
-repo_path = "ComponentsXML"  # Path to your local Git repository
-commit_message = "Updated the report.md with the latest results"
-commit_and_push_file(repo_path, report_path, commit_message)
+    repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, boomi_cicd.COMPONENT_REPO_NAME)
+    logger.info(f"Git Repo Status: {repo.git.status()}".replace("\n", " "))
+    return repo
+
+def commit_and_push(repo, commit_message="Commit from Boomi CICD"):
+    """
+    Commit and push changes to the component repository.
+    :param repo: Repo object
+    :param commit_message: Commit Message.
+    Default is "Commit from Boomi CICD".
+    :return: None.
+    """
+    repo.index.add("*")
+    commit_message = commit_message
+    logger.info(f"Commiting changes: {commit_message}")
+    repo.index.commit(commit_message)
+    repo.remote("origin").push("main")
+# Clone repo
+repo = clone_repository()
+commit_and_push (repo)
