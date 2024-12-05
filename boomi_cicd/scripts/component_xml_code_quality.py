@@ -5,7 +5,36 @@ from boomi_cicd import logger
 
 from lxml import etree
 
-# TODO: Clean up into smaller functions
+def clone_repository():
+    """
+    Clone the component repository.
+    The function will import GitPython to avoid the need to install git unless the component_xml_git.py script is used.
+    :return: Repo object
+    """
+    # Lazy load git.
+    # GitPython requires git to be installed.
+    # This allows for users to not install git unless the component_xml_git.py script is used.
+    from git import Repo
+
+    repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, "Report")
+    logger.info(f"Git Repo Status: {repo.git.status()}".replace("\n", " "))
+    return repo
+
+def commit_and_push(repo, commit_message="Commit from Boomi CICD"):
+    """
+    Commit and push changes to the component repository.
+    :param repo: Repo object
+    :param commit_message: Commit Message.
+    Default is "Commit from Boomi CICD".
+    :return: None.
+    """
+    repo.index.add("*")
+    commit_message = commit_message
+    logger.info(f"Commiting changes: {commit_message}")
+    repo.index.commit(commit_message)
+    repo.remote("origin").push("main")
+# Clone repo
+
 repo = clone_repository()
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
@@ -87,35 +116,4 @@ for root, _, filenames in os.walk(base_folder):
 f.close()
 
 commit_and_push (repo)
-
-def clone_repository():
-    """
-    Clone the component repository.
-    The function will import GitPython to avoid the need to install git unless the component_xml_git.py script is used.
-    :return: Repo object
-    """
-    # Lazy load git.
-    # GitPython requires git to be installed.
-    # This allows for users to not install git unless the component_xml_git.py script is used.
-    from git import Repo
-
-    repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, "Report")
-    logger.info(f"Git Repo Status: {repo.git.status()}".replace("\n", " "))
-    return repo
-
-def commit_and_push(repo, commit_message="Commit from Boomi CICD"):
-    """
-    Commit and push changes to the component repository.
-    :param repo: Repo object
-    :param commit_message: Commit Message.
-    Default is "Commit from Boomi CICD".
-    :return: None.
-    """
-    repo.index.add("*")
-    commit_message = commit_message
-    logger.info(f"Commiting changes: {commit_message}")
-    repo.index.commit(commit_message)
-    repo.remote("origin").push("main")
-# Clone repo
-
 
