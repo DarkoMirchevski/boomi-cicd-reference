@@ -96,7 +96,7 @@ def clone_repository():
     # This allows for users to not install git unless the component_xml_git.py script is used.
     from git import Repo
 
-    repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, boomi_cicd.COMPONENT_REPO_NAME)
+    repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, "Report")
     logger.info(f"Git Repo Status: {repo.git.status()}".replace("\n", " "))
     return repo
 
