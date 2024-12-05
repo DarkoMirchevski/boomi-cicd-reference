@@ -6,7 +6,7 @@ from boomi_cicd import logger
 from lxml import etree
 
 # TODO: Clean up into smaller functions
-
+repo = clone_repository()
 # Set report variables
 REPORT_TITLE = "Packaged Components Code Quality Report"
 REPORT_HEADERS = [
@@ -86,6 +86,8 @@ for root, _, filenames in os.walk(base_folder):
 
 f.close()
 
+commit_and_push (repo)
+
 def clone_repository():
     """
     Clone the component repository.
@@ -115,5 +117,5 @@ def commit_and_push(repo, commit_message="Commit from Boomi CICD"):
     repo.index.commit(commit_message)
     repo.remote("origin").push("main")
 # Clone repo
-repo = clone_repository()
-commit_and_push (repo)
+
+
