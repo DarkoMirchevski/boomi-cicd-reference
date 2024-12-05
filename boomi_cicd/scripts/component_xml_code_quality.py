@@ -61,7 +61,7 @@ def print_report_row(row_local):
 
 
 # Open file for report.
-base_folder = boomi_cicd.COMPONENT_REPO_NAME
+base_folder = "Report"
 f = open(f"{base_folder}/report.md", "w")
 
 sonar_rules = etree.parse(boomi_cicd.SONAR_RULES_FILE)
