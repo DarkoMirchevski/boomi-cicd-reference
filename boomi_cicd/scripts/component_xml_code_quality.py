@@ -117,3 +117,8 @@ f.close()
 
 commit_and_push (repo)
 
+with open(f"{base_folder}/report.md", "r") as f:
+    report_content = f.read()
+    if "MAJOR" in report_content:
+        logger.error("Report contains entries with priority 'MAJOR'. Failing the script.")
+        sys.exit(1)  # Exit with a non-zero status to indicate failure
