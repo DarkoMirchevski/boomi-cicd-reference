@@ -55,7 +55,22 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           pip install -r ./requirements.txt
-
+          
+      - name: Deployment
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/automated_testing.py
+          
+      - name: Update Environment Extensions
+        run: |
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          export BOOMI_ENV_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_ENV_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/environment_extensions_update.py
+          
       - name: Store Components XML
         run: | 
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
