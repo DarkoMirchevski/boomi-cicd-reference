@@ -1,14 +1,6 @@
 {
   "pipelines": [
     {
-      "processName": "Test1",
-      "packageVersion": "11-27-2024-v16",
-      "componentId": "047c7843-d3ca-45a9-af31-e9e27ed1e186",
-      "notes": "Github note proccess with test cases",
-      "listenerStatus": "RUNNING",
-      "automatedTestId": "8434060c-df3d-4a76-a223-e157db20865d",
-      "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
-    },{
       "processName": "Test2",
       "packageVersion": "11-27-2024-v16",
       "componentId": "37c02881-94c2-4217-b133-8a8d23e2b78a",
