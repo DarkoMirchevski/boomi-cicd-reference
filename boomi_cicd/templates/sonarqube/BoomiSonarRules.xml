@@ -299,5 +299,28 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>HttpConnection_Name_Standard</key>
+            <type>CODE_SMELL</type>
+            <priority>MINOR</priority>
+            <name>HTTP Connection Operation Name Must Follow CHG Standard</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>The name of HTTP connection operation must include square brackets ([]) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/**.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='connector-action' and @subType='http' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>HTTP Connection operations must include uppercase text in square brackets (e.g., [SF], [HRIS], [SAP]).</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
