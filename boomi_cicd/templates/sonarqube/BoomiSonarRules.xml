@@ -10,9 +10,7 @@
             <priority>MINOR</priority>
             <name>Components Shall Not Start With New</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Component names must not start with "New " which is Boomi"s default. They should be named to
-                have a accurate description.
-            </description>
+            <description>Component names must not start with "New " which is Boomi"s default. They should be named to have a accurate description.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -285,10 +283,7 @@
             <priority>MAJOR</priority>
             <name>HTTP Connection Name Must Follow Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>
-                The name of HTTP connection components must include square brackets (`[]`) with uppercase text inside 
-                (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.
-            </description>
+            <description>The name of HTTP connection components must include square brackets (`[]`) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
