@@ -283,7 +283,8 @@
             <priority>MAJOR</priority>
             <name>HTTP Connection Name Must Follow Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>The name of HTTP connection components must include square brackets (`[]`) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <description>The name of HTTP connection components must include square brackets ([]) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with naming conventions.
+            </description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -292,7 +293,8 @@
                 <parameter>
                     <key>expression</key>
                     <value>
-                        /bns:Component[@type='connector-settings' and @subType='http' and not(contains(@name, '[')) or not(@name=translate(@name, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'))]
+                        /bns:Component[@type='connector-settings' and @subType='http' and 
+                        (not(contains(@name, '[')) or not(@name=translate(@name, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')))]
                     </value>
                 </parameter>
                 <parameter>
