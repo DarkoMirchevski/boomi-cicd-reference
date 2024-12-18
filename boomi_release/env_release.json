@@ -5,8 +5,8 @@
       "property" : [
          {
             "@type" : "",
-            "name" : "testDynamicProcessProperty",
-            "value" : "GithubUpdated"
+            "name" : "SnowflakePassword",
+            "value" : "secrets.SNOWFLAKE_PASSWORD"
          }
       ]
    },
