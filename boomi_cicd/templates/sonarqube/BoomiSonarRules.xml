@@ -322,5 +322,30 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>DocumentProperty_Must_Have_SourceValues</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Document Property Must Have Source Values</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Every document property must have at least one source value defined.</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/**.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>
+                        /bns:Component/bns:object/process/shapes/shape[@shapetype='documentproperties']/configuration/documentproperties/documentproperty[not(sourcevalues)]
+                    </value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Document property "{{@name}}" must have at least one source value defined.</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
