@@ -2,7 +2,7 @@
   "pipelines": [
     {
       "processName": "DDP_Test",
-      "packageVersion": "01-21-2025",
+      "packageVersion": "01-21-2025v2",
       "componentId": "b3cf8ae8-0580-413d-aec6-2da783b72019",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
