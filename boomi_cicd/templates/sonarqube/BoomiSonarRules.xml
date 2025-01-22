@@ -370,5 +370,28 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>Test_Process_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Test process name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Test process names should start with {CT}, {UT}, {IT}, {E2E}, {PT}, or {TS}.</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/Test/**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='process' and starts-with(@name, '{CT}') or starts-with(@name, '{UT}') or starts-with(@name, '{IT}') or starts-with(@name, '{E2E}') or starts-with(@name, '{PT}') or starts-with(@name, '{TS}')] </value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Test process name must start with {CT}, {UT}, {IT}, {E2E}, {PT}, or {TS}.</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
