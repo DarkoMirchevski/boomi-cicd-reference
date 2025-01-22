@@ -362,7 +362,7 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component/@name[not(matches(., '^\[(Listener|Main|Sub)\].*-v\d+$'))]</value>
+                    <value>/bns:Component[@type='process' and not(contains(@name, '[') and contains(@name, ']') and (starts-with(substring-before(substring-after(@name, '['), ']'), 'Listener') or starts-with(substring-before(substring-after(@name, '['), ']'), 'Main') or starts-with(substring-before(substring-after(@name, '['), ']'), 'Sub')) and contains(@name, '-v'))]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
