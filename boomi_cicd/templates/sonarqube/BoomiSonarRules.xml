@@ -354,7 +354,7 @@
             <priority>MAJOR</priority>
             <name>Process Name Format Validation</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Ensures process names start with [Main], [Listener], or [Sub] and end with a version.</description>
+            <description>Ensures process names start with [Main], [Listener], or [Sub] and end with a version number.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -363,7 +363,7 @@
                 <parameter>
                     <key>expression</key>
                     <value>
-                        not(matches(@name, '^\[(Main|Listener|Sub)\]-[A-Za-z0-9\s]+-v[0-9]+$'))
+                        /bns:Component[@type='process' and not(matches(@name, '^\[(Main|Listener|Sub)\]-[A-Za-z0-9\s]+-v[0-9]+$'))]
                     </value>
                 </parameter>
                 <parameter>
