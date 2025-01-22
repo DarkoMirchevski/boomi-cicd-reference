@@ -347,5 +347,30 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>Process_Name_Format_Validation</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Process Name Format Validation</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Ensures process names start with [Main], [Listener], or [Sub] and end with a version.</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/**.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>
+                        not(matches(@name, '^\[(Main|Listener|Sub)\]-[A-Za-z0-9\s]+-v[0-9]+$'))
+                    </value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Process name "{{@name}}" must start with [Main], [Listener], or [Sub] and end with -v followed by a version number.</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
