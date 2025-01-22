@@ -1,13 +1,13 @@
 {
   "pipelines": [
     {
-      "processName": "DDP_Test",
-      "packageVersion": "01-21-2025v2",
-      "componentId": "b3cf8ae8-0580-413d-aec6-2da783b72019",
+      "processName": "[Listener]-Leads-Legacy ID Lookup-v1",
+      "packageVersion": "01-22-2025",
+      "componentId": "d38fb0fd-d288-4d57-aa01-2725793a72b6",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
       "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
-      "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
+      "folderFullPath": "Training-Darko-Mirchevski/Test"
     }
   ]
 }
