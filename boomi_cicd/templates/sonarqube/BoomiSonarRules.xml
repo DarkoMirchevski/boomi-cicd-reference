@@ -347,32 +347,5 @@
                 </parameter>
             </parameters>
         </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>Process_Name_Standard</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>Process Name Must Follow Naming Standard</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>Process names must start with [Listener], [Main], or [Sub] and end with a version number (e.g., v1).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/**.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>
-                        /bns:Component[@type='process' and not(
-                            matches(@name, '^\[(Listener|Main|Sub)\].+-\s*v\d+$')
-                        )]
-                    </value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>Process name must start with [Listener], [Main], or [Sub] and end with a version number (e.g., v1).</value>
-                </parameter>
-            </parameters>
-        </rule>
     </rules>
 </profile>
