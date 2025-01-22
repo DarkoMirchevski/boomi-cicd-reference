@@ -1,8 +1,8 @@
 {
   "pipelines": [
     {
-      "processName": "[Listener]-Leads-Legacy ID Lookup-v1",
-      "packageVersion": "01-22-2025",
+      "processName": "[Listener]-Leads-Legacy ID Lookup",
+      "packageVersion": "01-22-2025v2",
       "componentId": "d38fb0fd-d288-4d57-aa01-2725793a72b6",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
