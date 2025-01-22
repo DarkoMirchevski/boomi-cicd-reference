@@ -362,7 +362,7 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component/bns:object/process/@name[not(matches(., '^\[(Listener|Main|Sub)\].*-v\d+'))]</value>
+                    <value>/bns:Component/@name[not(matches(., '^\[(Listener|Main|Sub)\].*-v\d+'))]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
