@@ -393,5 +393,28 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>Connection_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Connection name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Connection names should include the tool name inside square brackets (e.g., [Postman], [API], [DB], [Salesforce]) to ensure consistency across the project.</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='connector-settings' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Connection name must include the tool name inside square brackets (e.g., [Postman], [API], [DB], [Salesforce]) to maintain consistency across the project.</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
