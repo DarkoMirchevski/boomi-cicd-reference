@@ -416,5 +416,28 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>Connector_Operation_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Connector Operation name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Connector Operation names must start with a tool name inside square brackets (e.g., [Salesforce], [Kafka]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='connector-action' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Connector Operation name must start with a tool name inside square brackets (e.g., [Salesforce], [Kafka]).</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
