@@ -439,5 +439,120 @@
                 </parameter>
             </parameters>
         </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>DB_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Database Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Database Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.db' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Database Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>EDI_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>EDI Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>EDI Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.edi' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>EDI Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>FlatFile_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Flat File Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Flat File Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.flatfile' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Flat File Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>JSON_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>JSON Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>JSON Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.json' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>JSON Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>XML_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>XML Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>XML Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.xml' and not(matches(@name, '^\[.+\].*'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>XML Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
     </rules>
 </profile>
