@@ -117,9 +117,11 @@ f.close()
 
 commit_and_push (repo)
 
-# Check for "BUG" after committing
+# Check for "BUG" in the report after committing
+report_path = "Report/report.md"
+
 with open(report_path, "r") as f:
-    report_content = f.read()
-    if "BUG" in report_content:
-        logger.error("Bug detected in report.md. Stopping deployment.")
-        sys.exit(1)  # Exit with failure code
+    for line in f:
+        if "BUG" in line:
+            logger.error("Bug detected in report.md. Stopping deployment.")
+            sys.exit(1)  # Exit with failure status to stop GitHub Actions
