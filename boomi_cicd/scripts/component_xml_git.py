@@ -12,9 +12,9 @@ for release in releases["pipelines"]:
     notes = release.get("notes")
 
 # If successful the package and deploy the main process
-        package_id = boomi_cicd.create_packaged_component(
-            component_id, package_version, notes
-        )
+package_id = boomi_cicd.create_packaged_component(
+    component_id, package_version, notes
+)
 #Added End TODO    
 # Clone repo
 repo = boomi_cicd.clone_repository()
