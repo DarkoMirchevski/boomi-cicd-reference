@@ -116,3 +116,10 @@ for root, _, filenames in os.walk(base_folder):
 f.close()
 
 commit_and_push (repo)
+
+# Check for "BUG" after committing
+with open(report_path, "r") as f:
+    report_content = f.read()
+    if "BUG" in report_content:
+        logger.error("Bug detected in report.md. Stopping deployment.")
+        sys.exit(1)  # Exit with failure code
