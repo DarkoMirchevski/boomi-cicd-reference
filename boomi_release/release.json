@@ -2,7 +2,7 @@
   "pipelines": [
     {
       "processName": "[Listen]-Test-v1",
-      "packageVersion": "02-11-2025v1",
+      "packageVersion": "02-11-2025123",
       "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
