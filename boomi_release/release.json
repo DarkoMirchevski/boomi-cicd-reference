@@ -2,9 +2,9 @@
   "pipelines": [
     {
       "processName": "[Listen]-Test-v1",
-      "packageVersion": "02-11-2025123",
+      "packageVersion": "02-11-2025-R3",
       "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
-      "notes": "Github note proccess with test cases",
+      "notes": "test",
       "listenerStatus": "RUNNING",
       "automatedTestId": "4dfb3fe3-c02b-4992-b15a-502b926a0f8b",
       "folderFullPath": "Training-Darko-Mirchevski/CICD"
