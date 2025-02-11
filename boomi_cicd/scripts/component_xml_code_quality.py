@@ -2,6 +2,7 @@ import os
 
 import boomi_cicd
 from boomi_cicd import logger
+import sys
 
 from lxml import etree
 
