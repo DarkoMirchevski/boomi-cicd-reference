@@ -5,10 +5,10 @@
     <rules>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>Components_Shall_Not_Start_With_New</key>
+            <key>Components_Should_Not_Start_With_New</key>
             <type>CODE_SMELL</type>
-            <priority>MINOR</priority>
-            <name>Components Shall Not Start With New</name>
+            <priority>MAJOR</priority>
+            <name>Components Should Not Start With New</name>
             <templateKey>XPathCheck</templateKey>
             <description>Component names must not start with "New " which is Boomi"s default. They should be named to have a accurate description.</description>
             <parameters>
@@ -22,7 +22,7 @@
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>Component names shall not begin with *New *. Please rename to match naming standard.</value>
+                    <value>Component names should not begin with *New *. Please rename to match CHG naming standard.</value>
                 </parameter>
             </parameters>
         </rule>
@@ -31,9 +31,9 @@
             <key>Description_Must_Not_Be_Empty</key>
             <type>CODE_SMELL</type>
             <priority>MINOR</priority>
-            <name>Description Must Not Be Empty</name>
+            <name>Description Should Not Be Empty</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Process description must be set</description>
+            <description>Process description should be set</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -106,8 +106,7 @@
             <priority>MAJOR</priority>
             <name>Password must be extensible</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Is the password hard coded? The connection property password must be marked as extensible.
-            </description>
+            <description>Is the password hard coded? The connection property password must be marked as extensible.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -132,8 +131,7 @@
             <priority>MAJOR</priority>
             <name>URL must be extensible</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Is the URL hardcoded? URL property used in connection must be marked as extensible.
-            </description>
+            <description>Is the URL hardcoded? URL property used in connection must be marked as extensible.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -158,8 +156,7 @@
             <priority>MAJOR</priority>
             <name>User name must be extensible</name>
             <templateKey>XPathCheck</templateKey>
-            <description>Is user name hard coded? Connection setting username must be marked as extensible.
-            </description>
+            <description>Is user name hard coded? Connection setting username must be marked as extensible.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -174,31 +171,6 @@
                 <parameter>
                     <key>message</key>
                     <value>Connection property "user" must be extensible. @overrideable must be "true"</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>AtomQueue_Has_NoMinConnections</key>
-            <type>BUG</type>
-            <priority>MAJOR</priority>
-            <name>AtomQ Listener Connections</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>AtomQ Listener must not have max connections set to O</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/**.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>
-                        /bns:Component/bns:object/Operation/Configuration/QueueGetAction[@maxConcurrentExecutions='0']
-                    </value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>AtomQ Listener shall not have 0 as max connections</value>
                 </parameter>
             </parameters>
         </rule>
@@ -228,32 +200,7 @@
         </rule>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>JMS_Has_NoMinConnections</key>
-            <type>BUG</type>
-            <priority>MAJOR</priority>
-            <name>JMS Listener Connections</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>JMS Listener must not have max connections set to O</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/**.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>
-                        /bns:Component/bns:object/Operation/Configuration/JMSGetAction[@maxConcurrentExecutions='0']
-                    </value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>JMS Listener shall not have 0 as max connections</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>GeneralModeListener</key>
+            <key>General_Mode_Listener</key>
             <type>BUG</type>
             <priority>MINOR</priority>
             <name>General Model Listener Process</name>
@@ -276,14 +223,14 @@
                 </parameter>
             </parameters>
         </rule>
-       <rule>
+        <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>HttpConnection_Name_Standard</key>
+            <key>Connection_Name_Standard</key>
             <type>CODE_SMELL</type>
             <priority>MINOR</priority>
-            <name>HTTP Connection Name Must Follow CHG Standard</name>
+            <name>Connection Name Must Follow CHG Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>The name of HTTP connection components must include square brackets ([]) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <description>The name of connection components must include square brackets ([]) with uppercase text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -291,22 +238,22 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component[@type='connector-settings' and @subType='http' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
+                    <value>/bns:Component[@type='connector-settings' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>HTTP Connection names must include uppercase text in square brackets (e.g., [SF], [HRIS], [SAP]).</value>
+                    <value>Connection names must include uppercase text in square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
                 </parameter>
             </parameters>
         </rule>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>HttpConnection_Name_Standard</key>
+            <key>Connection_Operation_NameStandard</key>
             <type>CODE_SMELL</type>
             <priority>MINOR</priority>
-            <name>HTTP Connection Operation Name Must Follow CHG Standard</name>
+            <name>Connection Operation Name Must Follow CHG Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>The name of HTTP connection operation must include square brackets ([]) with uppercase text inside (e.g., [SF], [HRIS], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <description>The name of connection operation must include square brackets ([]) with uppercase text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -314,17 +261,132 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component[@type='connector-action' and @subType='http' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
+                    <value>/bns:Component[@type='connector-action' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>HTTP Connection operations must include uppercase text in square brackets (e.g., [SF], [HRIS], [SAP]).</value>
+                    <value>Connection operations must include uppercase text in square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
                 </parameter>
             </parameters>
         </rule>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>DocumentProperty_Must_Have_SourceValues</key>
+            <key>DB_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Database Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Database Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.db' and not(starts-with(@name, '[') and contains(@name, ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Database Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>EDI_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>EDI Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>EDI Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.edi' and not(starts-with(@name, '[') and contains(@name, ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>EDI Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>FlatFile_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>Flat File Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>Flat File Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.flatfile' and not(starts-with(@name, '[') and contains(@name, ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>Flat File Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>JSON_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>JSON Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>JSON Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.json' and not(starts-with(@name, '[') and contains(@name, ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>JSON Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>XML_Profile_Name_Format</key>
+            <type>CODE_SMELL</type>
+            <priority>MAJOR</priority>
+            <name>XML Profile name must follow a specific pattern</name>
+            <templateKey>XPathCheck</templateKey>
+            <description>XML Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
+            <parameters>
+                <parameter>
+                    <key>filePattern</key>
+                    <value>**/*.xml</value>
+                </parameter>
+                <parameter>
+                    <key>expression</key>
+                    <value>/bns:Component[@type='profile.xml' and not(starts-with(@name, '[') and contains(@name, ']'))]</value>
+                </parameter>
+                <parameter>
+                    <key>message</key>
+                    <value>XML Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
+                </parameter>
+            </parameters>
+        </rule>
+        <rule>
+            <repositoryKey>xml</repositoryKey>
+            <key>DocumentPropertyMustHaveSourceValues</key>
             <type>CODE_SMELL</type>
             <priority>MAJOR</priority>
             <name>Document Property Must Have Source Values</name>
@@ -349,10 +411,10 @@
         </rule>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>Process_Name_Format</key>
+            <key>ProcessNameFormat</key>
             <type>CODE_SMELL</type>
             <priority>MAJOR</priority>
-            <name>Process name must follow a specific pattern</name>
+            <name>Process name must follow CHG pattern standards</name>
             <templateKey>XPathCheck</templateKey>
             <description>Process names should start with either [Listener], [Main], or [Sub], and end with a version number (e.g., -v1).</description>
             <parameters>
@@ -366,16 +428,16 @@
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>Process name does not follow the required format.</value>
+                    <value>Process name does not follow the required format defined for CHG.</value>
                 </parameter>
             </parameters>
         </rule>
         <rule>
             <repositoryKey>xml</repositoryKey>
-            <key>Test_Process_Name_Format</key>
+            <key>TestProcessNameFormat</key>
             <type>CODE_SMELL</type>
             <priority>MAJOR</priority>
-            <name>Test process name must follow a specific pattern</name>
+            <name>Test process name must follow CHG pattern standards</name>
             <templateKey>XPathCheck</templateKey>
             <description>Test process names should start with {CT}, {UT}, {IT}, {E2E}, {PT}, or {TS}.</description>
             <parameters>
@@ -390,167 +452,6 @@
                 <parameter>
                     <key>message</key>
                     <value>Test process name must start with {CT}, {UT}, {IT}, {E2E}, {PT}, or {TS}.</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>Connection_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>Connection name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>Connection names should include the tool name inside square brackets (e.g., [Postman], [API], [DB], [Salesforce]) to ensure consistency across the project.</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='connector-settings' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>Connection name must include the tool name inside square brackets (e.g., [Postman], [API], [DB], [Salesforce]) to maintain consistency across the project.</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>Connector_Operation_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>Connector Operation name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>Connector Operation names must start with a tool name inside square brackets (e.g., [Salesforce], [Kafka]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='connector-action' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>Connector Operation name must start with a tool name inside square brackets (e.g., [Salesforce], [Kafka]).</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>DB_Profile_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>Database Profile name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>Database Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='profile.db' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>Database Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>EDI_Profile_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>EDI Profile name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>EDI Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='profile.edi' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>EDI Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>FlatFile_Profile_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>Flat File Profile name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>Flat File Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='profile.flatfile' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>Flat File Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>JSON_Profile_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>JSON Profile name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>JSON Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='profile.json' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>JSON Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
-                </parameter>
-            </parameters>
-        </rule>
-        <rule>
-            <repositoryKey>xml</repositoryKey>
-            <key>XML_Profile_Name_Format</key>
-            <type>CODE_SMELL</type>
-            <priority>MAJOR</priority>
-            <name>XML Profile name must follow a specific pattern</name>
-            <templateKey>XPathCheck</templateKey>
-            <description>XML Profile names must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</description>
-            <parameters>
-                <parameter>
-                    <key>filePattern</key>
-                    <value>**/*.xml</value>
-                </parameter>
-                <parameter>
-                    <key>expression</key>
-                    <value>/bns:Component[@type='profile.xml' and not(matches(@name, '^\[.+\].*'))]</value>
-                </parameter>
-                <parameter>
-                    <key>message</key>
-                    <value>XML Profile name must start with a tool name inside square brackets (e.g., [SAP], [FOX], [Leads]).</value>
                 </parameter>
             </parameters>
         </rule>
