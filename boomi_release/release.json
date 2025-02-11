@@ -1,13 +1,13 @@
 {
   "pipelines": [
     {
-      "processName": "[Listener]-Leads-Legacy ID Lookup-v1",
-      "packageVersion": "02-11-2025v3",
-      "componentId": "d38fb0fd-d288-4d57-aa01-2725793a72b6",
+      "processName": "[Listen]-Test-v1",
+      "packageVersion": "02-11-2025v1",
+      "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
       "notes": "Github note proccess with test cases",
       "listenerStatus": "RUNNING",
-      "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
-      "folderFullPath": "Training-Darko-Mirchevski/Test"
+      "automatedTestId": "4dfb3fe3-c02b-4992-b15a-502b926a0f8b",
+      "folderFullPath": "Training-Darko-Mirchevski/CICD"
     }
   ]
 }
