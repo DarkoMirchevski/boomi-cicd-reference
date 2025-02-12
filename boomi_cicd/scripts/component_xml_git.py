@@ -22,6 +22,7 @@ repo = boomi_cicd.clone_repository()
 file_components = boomi_cicd.get_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME)
 
 for release in releases["pipelines"]:
+    release["packageVersion"] += "-CODEVALIDATION"
     boomi_cicd.process_git_release(repo, file_components, release)
 
 # Save parent folder name and component ID
