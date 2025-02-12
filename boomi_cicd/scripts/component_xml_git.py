@@ -29,5 +29,7 @@ boomi_cicd.set_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME, file_comp
 # Commit and push changes
 boomi_cicd.commit_and_push(repo)
 
+#Added Start TODO
 resource_path = "/PackagedComponent/{}".format(package_id)
 boomi_cicd.requests_delete(resource_path)
+#Added End TODO  
