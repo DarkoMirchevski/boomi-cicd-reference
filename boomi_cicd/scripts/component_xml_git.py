@@ -28,3 +28,6 @@ for release in releases["pipelines"]:
 boomi_cicd.set_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME, file_components)
 # Commit and push changes
 boomi_cicd.commit_and_push(repo)
+
+resource_path = "/PackagedComponent/{}".format(package_id)
+boomi_cicd.requests_delete(resource_path)
