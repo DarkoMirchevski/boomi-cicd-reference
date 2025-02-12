@@ -8,7 +8,7 @@ for release in releases["pipelines"]:
     process_name = release["processName"]
     component_id = release["componentId"]
     automated_test_component_id = release["automatedTestId"]
-    package_version = release["packageVersion"]
+    package_version = release["packageVersion"] + "-CODEVALIDATION"
     notes = release.get("notes")
 
 # If successful the package and deploy the main process
