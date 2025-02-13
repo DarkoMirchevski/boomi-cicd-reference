@@ -3,6 +3,8 @@ import os
 import boomi_cicd
 from boomi_cicd import logger
 import sys
+import json
+import logging
 
 from lxml import etree
 
@@ -118,11 +120,23 @@ f.close()
 
 commit_and_push (repo)
 
-# Check for "BUG" in the report after committing
-report_path = "Report/report.md"
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.ERROR)
 
+report_path = "Report/report.md"
+release_json_path = "release.json"
+
+# Load release.json and extract full folder path
+with open(release_json_path, "r") as f:
+    releases = json.load(f)
+
+fullfolderpaths = {release["folderFullPath"] for release in releases["pipelines"]}
+
+# Check for "BUG" in the report file
 with open(report_path, "r") as f:
     for line in f:
-        if "BUG" in line:
-            logger.error("Bug detected in report.md. Stopping deployment.")
-            sys.exit(1)  # Exit with failure status to stop GitHub Actions
+        if any(folder in line for folder in fullfolderpaths) and "BUG" in line:
+            logger.error(f"Bug detected in report.md for component in {line.strip()}. Stopping deployment.")
+            sys.exit(1)
+
+logger.info("No blocking issues found. Proceeding with deployment.")
