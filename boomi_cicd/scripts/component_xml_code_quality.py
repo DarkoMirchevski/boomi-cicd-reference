@@ -121,22 +121,18 @@ f.close()
 commit_and_push (repo)
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.ERROR)
+# Read release data
+releases = boomi_cicd.set_release()
 
-report_path = "Report/report.md"
-release_json_path = "release.json"
-
-# Load release.json and extract full folder path
-with open(release_json_path, "r") as f:
-    releases = json.load(f)
-
+# Extract all folder paths into a set
 fullfolderpaths = {release["folderFullPath"] for release in releases["pipelines"]}
 
-# Check for "BUG" in the report file
+# Check report file
+report_path = "Report/report.md"
+
 with open(report_path, "r") as f:
     for line in f:
-        if any(folder in line for folder in fullfolderpaths) and "BUG" in line:
-            logger.error(f"Bug detected in report.md for component in {line.strip()}. Stopping deployment.")
-            sys.exit(1)
-
-logger.info("No blocking issues found. Proceeding with deployment.")
+        for folder_path in fullfolderpaths:
+            if folder_path in line and "BUG" in line:
+                logger.error("Bug detected in report.md for a component inside a tracked folder. Stopping deployment.")
+                sys.exit(1)
