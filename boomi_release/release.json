@@ -2,20 +2,12 @@
   "pipelines": [
     {
       "processName": "[Listen]-Test-v1",
-      "packageVersion": "02-14-2025-R17", 
+      "packageVersion": "02-14-2025-R18", 
       "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
       "notes": "test",
       "listenerStatus": "RUNNING",
       "automatedTestId": "4dfb3fe3-c02b-4992-b15a-502b926a0f8b",
       "folderFullPath": "Training-Darko-Mirchevski/CICD"
-    },{
-      "processName": "Company",
-      "packageVersion": "02-14-2025-R5", 
-      "componentId": "a0ef89d5-2bf7-4090-9267-a58ab463ca62",
-      "notes": "test",
-      "listenerStatus": "RUNNING",
-      "automatedTestId": "f45add48-64c2-4a22-ac7c-59c4b6ef64c5",
-      "folderFullPath": "Training-Darko-Mirchevski/Temp"
     }
   ]
 }
