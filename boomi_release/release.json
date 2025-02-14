@@ -2,7 +2,7 @@
   "pipelines": [
     {
       "processName": "[Listen]-Test-v1",
-      "packageVersion": "02-14-2025-R15", 
+      "packageVersion": "02-14-2025-R17", 
       "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
       "notes": "test",
       "listenerStatus": "RUNNING",
@@ -10,7 +10,7 @@
       "folderFullPath": "Training-Darko-Mirchevski/CICD"
     },{
       "processName": "Company",
-      "packageVersion": "02-14-2025-R4", 
+      "packageVersion": "02-14-2025-R5", 
       "componentId": "a0ef89d5-2bf7-4090-9267-a58ab463ca62",
       "notes": "test",
       "listenerStatus": "RUNNING",
