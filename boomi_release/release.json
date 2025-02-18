@@ -2,11 +2,11 @@
   "pipelines": [
     {
       "processName": "[Listen]-Test-v1",
-      "packageVersion": "02-14-2025-R18", 
+      "packageVersion": "02-18-2025-R20", 
       "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
       "notes": "test",
       "listenerStatus": "RUNNING",
-      "automatedTestId": "4dfb3fe3-c02b-4992-b15a-502b926a0f8b",
+      "automatedTestId": "9e62e196-f295-4026-a87c-ebc7b646f655",
       "folderFullPath": "Training-Darko-Mirchevski/CICD"
     }
   ]
