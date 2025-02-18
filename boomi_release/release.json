@@ -1,13 +1,13 @@
 {
   "pipelines": [
     {
-      "processName": "[Listen]-Test-v1",
+      "processName": "[Test2]-v1",
       "packageVersion": "02-18-2025-R21", 
-      "componentId": "1cc42f7d-5f78-4630-b77a-b45a8fdf26c3",
+      "componentId": "37c02881-94c2-4217-b133-8a8d23e2b78a",
       "notes": "test",
       "listenerStatus": "RUNNING",
-      "automatedTestId": "9e62e196-f295-4026-a87c-ebc7b646f655",
-      "folderFullPath": "Training-Darko-Mirchevski/CICD"
+      "automatedTestId": "57b9b3bb-478e-409e-a13d-e59c8fa5d48a",
+      "folderFullPath": "Training-Darko-Mirchevski/Doubleservice"
     }
   ]
 }
