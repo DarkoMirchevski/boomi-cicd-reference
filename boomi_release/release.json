@@ -2,7 +2,7 @@
   "pipelines": [
     {
       "processName": "[Main]-v1",
-      "packageVersion": "02-18-2025-R25", 
+      "packageVersion": "02-18-2025-R27", 
       "componentId": "52b1ebcf-8e2d-4d69-80b1-a927f11851b8",
       "notes": "test",
       "listenerStatus": "RUNNING",
