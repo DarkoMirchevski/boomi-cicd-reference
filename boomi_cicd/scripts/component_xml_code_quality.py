@@ -124,8 +124,8 @@ logger = logging.getLogger(__name__)
 # Read release data
 releases = boomi_cicd.set_release()
 
-# Extract all folder paths into a set
-fullfolderpaths = {release["folderFullPath"] for release in releases["pipelines"]}
+# Extract all folder paths into a set and format them with slashes
+fullfolderpaths = {f"/{release['folderFullPath']}/" for release in releases["pipelines"]}
 
 # Check report file
 report_path = "Report/report.md"
@@ -134,5 +134,7 @@ with open(report_path, "r") as f:
     for line in f:
         for folder_path in fullfolderpaths:
             if folder_path in line and "BUG" in line:
-                logger.error("Bug detected in report.md for a component inside a tracked folder. Stopping deployment.")
-                sys.exit(1)
+                # Ensure folder_path is the only path-like element in the line
+                if line.count("/") == folder_path.count("/"):
+                    logger.error("Bug detected in report.md for a component inside a tracked folder. Stopping deployment.")
+                    sys.exit(1)
