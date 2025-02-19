@@ -6,7 +6,7 @@
         <rule>
             <repositoryKey>xml</repositoryKey>
             <key>Components_Should_Not_Start_With_New</key>
-            <type>CODE_SMELL</type>
+            <type>BUG</type>
             <priority>MAJOR</priority>
             <name>Components Should Not Start With New</name>
             <templateKey>XPathCheck</templateKey>
