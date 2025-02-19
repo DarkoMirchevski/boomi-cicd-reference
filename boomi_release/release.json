@@ -1,9 +1,9 @@
 {
   "pipelines": [
     {
-      "processName": "[Main]-Parent-v1",
-      "packageVersion": "02-19-2025-R12", 
-      "componentId": "f96f03f5-1f98-4575-8aa9-1162093014cf",
+      "processName": "[Main]-Root-v1",
+      "packageVersion": "02-19-2025-R1", 
+      "componentId": "2a8b33d8-2105-4413-beb1-0883fdd90666",
       "notes": "test",
       "listenerStatus": "RUNNING",
       "automatedTestId": "e85919ec-14d0-47b3-886d-32004f4b4da6",
