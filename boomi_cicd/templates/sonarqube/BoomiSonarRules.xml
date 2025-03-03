@@ -230,7 +230,7 @@
             <priority>MINOR</priority>
             <name>Connection Name Must Follow CHG Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>The name of connection components must include square brackets ([]) with uppercase text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <description>The name of connection components must include square brackets ([]) with text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -238,11 +238,11 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component[@type='connector-settings' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
+                    <value>/bns:Component[@type='connector-settings' and not(contains(@name, '[') and contains(@name, ']') and substring-before(substring-after(@name, '['), ']') != '')]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>Connection names must include uppercase text in square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
+                    <value>Connection names must include text inside square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
                 </parameter>
             </parameters>
         </rule>
@@ -253,7 +253,7 @@
             <priority>MINOR</priority>
             <name>Connection Operation Name Must Follow CHG Standard</name>
             <templateKey>XPathCheck</templateKey>
-            <description>The name of connection operation must include square brackets ([]) with uppercase text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
+            <description>The name of a connection operation must include square brackets ([]) with text inside (e.g., [Salesforce], [Leads], [SAP]). This rule ensures compliance with CHG naming conventions.</description>
             <parameters>
                 <parameter>
                     <key>filePattern</key>
@@ -261,11 +261,11 @@
                 </parameter>
                 <parameter>
                     <key>expression</key>
-                    <value>/bns:Component[@type='connector-action' and not(contains(@name, '[') and contains(@name, ']') and translate(substring-before(substring-after(@name, '['), ']'), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') = substring-before(substring-after(@name, '['), ']'))]</value>
+                    <value>/bns:Component[@type='connector-action' and not(contains(@name, '[') and contains(@name, ']') and substring-before(substring-after(@name, '['), ']') != '')]</value>
                 </parameter>
                 <parameter>
                     <key>message</key>
-                    <value>Connection operations must include uppercase text in square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
+                    <value>Connection operations must include text inside square brackets (e.g., [Salesforce], [Leads], [SAP]).</value>
                 </parameter>
             </parameters>
         </rule>
