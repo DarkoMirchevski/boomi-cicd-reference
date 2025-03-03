@@ -1,6 +1,12 @@
 import boomi_cicd
 from boomi_cicd import logger
 import uuid  # Import UUID to generate unique IDs
+import random
+import string
+
+# Function to generate a short unique ID (8 characters)
+def generate_short_unique_id(length=8):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 # Open release json
 releases = boomi_cicd.set_release()
@@ -19,12 +25,12 @@ for release in releases["pipelines"]:
     package_version = release["packageVersion"] + "-CODEVALIDATION"
     notes = release.get("notes")
     
-    # Generate a unique UUID for this release
-    unique_id = str(uuid.uuid4())
-    release_unique_ids[process_name] = unique_id  # Store the unique ID based on process name
+    # Generate a short unique ID (8 characters in length)
+    short_unique_id = generate_short_unique_id(8)
+    release_unique_ids[process_name] = short_unique_id  # Store the short unique ID based on process name
     
-    # Append the unique ID to the package version
-    package_version_with_unique_id = f"{package_version}-{unique_id}"
+    # Append the short unique ID to the package version
+    package_version_with_unique_id = f"{package_version}-{short_unique_id}"
 
     # Create the packaged component for this release and store its package ID
     package_id = boomi_cicd.create_packaged_component(component_id, package_version_with_unique_id, notes)
@@ -38,9 +44,9 @@ file_components = boomi_cicd.get_component_xml_file_refs(boomi_cicd.COMPONENT_RE
 
 # Process each release to update the Git repository with the component XMLs
 for release in releases["pipelines"]:
-    # Get the unique ID from the mapping and append it to packageVersion for each release
-    unique_id = release_unique_ids[release["processName"]]  # Retrieve the same unique ID
-    release["packageVersion"] = f"{release['packageVersion']}-CODEVALIDATION-{unique_id}"
+    # Get the short unique ID from the mapping and append it to packageVersion for each release
+    short_unique_id = release_unique_ids[release["processName"]]  # Retrieve the same unique ID
+    release["packageVersion"] = f"{release['packageVersion']}-CODEVALIDATION-{short_unique_id}"
     
     boomi_cicd.process_git_release(repo, file_components, release)
 
