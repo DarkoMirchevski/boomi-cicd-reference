@@ -38,7 +38,8 @@ for release in releases["pipelines"]:
         raise AssertionError(
             f"Automation test for {process_name}. Error message: {execution_response['message']}"
         )
-
+    boomi_cicd.delete_deployed_package(automated_test_deploymentId)
+    
     boomi_cicd.create_deployed_package(release, package_id, environment_id)
 
-    boomi_cicd.delete_deployed_package(automated_test_deploymentId)
+    
