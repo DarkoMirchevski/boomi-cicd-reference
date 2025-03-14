@@ -14,7 +14,7 @@ for release in releases["pipelines"]:
     automated_test_component_id = release["automatedTestId"]
     package_version = release["packageVersion"]
     notes = release.get("notes")
-    package_id = ("packageId")
+    package_id = release.get("packageId")
 
     automated_test_package_id = boomi_cicd.create_packaged_component(
         automated_test_component_id, package_version, notes
