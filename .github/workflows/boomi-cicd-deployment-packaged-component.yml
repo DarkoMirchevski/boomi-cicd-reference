@@ -1,0 +1,93 @@
+name: Boomi CICD Deployments
+
+on:
+  push:
+    branches:
+    - mainpc
+
+jobs:
+
+  development:
+    name: Development Deployment
+    runs-on: ubuntu-latest
+    environment: development
+
+    env:
+      BOOMI_ACCOUNT_ID: ${{ vars.BOOMI_ACCOUNT_ID }}
+      BOOMI_BASE_URL: ${{ vars.BOOMI_BASE_URL }}
+      BOOMI_ENVIRONMENT_NAME: "${{ vars.BOOMI_ENVIRONMENT_NAME }}"
+      BOOMI_USERNAME: ${{ vars.BOOMI_USERNAME }}
+      BOOMI_PASSWORD: ${{ secrets.BOOMI_PASSWORD }}
+      BOOMI_RELEASE_FILE: "boomi-cicd-release/boomi_release/release.json"
+      BOOMI_COMPONENT_GIT_URL: ${{ secrets.BOOMI_COMPONENT_GIT_URL }}
+      BOOMI_COMPONENT_REPO_NAME: "${{ vars.BOOMI_COMPONENT_REPO_NAME }}"
+      BOOMI_ATOM_NAME: "${{ vars.BOOMI_ATOM_NAME }}"
+      BOOMI_ENV_RELEASE_FILE: "${{ vars.BOOMI_ENV_RELEASE_FILE }}"
+      BOOMI_SONAR_RULES_FILE: "boomi_cicd/templates/sonarqube/BoomiSonarRules.xml"
+      
+    steps:
+
+      - name: 'Cleanup directory'
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Checkout current Boomi release repo
+        uses: actions/checkout@v4
+        with:
+          path: boomi-cicd-release
+
+      - name: Checkout Boomi CICD Library
+        uses: actions/checkout@v4
+        with:
+          repository: DarkoMirchevski/boomi-cicd-reference
+          token: ${{ secrets.BOOMI_CICD_LIBRARY_PAT }}
+          path: boomi-cicd-reference
+
+      - name: Install dependencies
+        run: |
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          pip install -r ./requirements.txt
+          
+      - name: Store Components XML
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/component_xml_git.py
+          
+      - name: Code Validation
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/component_xml_code_quality.py    
+      - name: Deployment
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/automated_testing.py
+        
+      - name: Update Environment Extensions
+        env:
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          export BOOMI_ENV_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_ENV_RELEASE_FILE}
+
+          # Use jq to inject the DatabasePassword dynamically
+          jq '.properties.property |= map(if .name == "SnowflakePassword" then .value = env.SNOWFLAKE_PASSWORD else . end)' \
+            $BOOMI_ENV_RELEASE_FILE > temp.json
+          mv temp.json $BOOMI_ENV_RELEASE_FILE
+
+          python3.11 boomi_cicd/scripts/environment_extensions_update.py
