@@ -14,7 +14,7 @@ for release in releases["pipelines"]:
     automated_test_component_id = release["automatedTestId"]
     package_version = release["packageVersion"]
     notes = release.get("notes")
-    package_id = ("packageId")
+    package_id = release.get("packageId")
 
     automated_test_package_id = boomi_cicd.create_packaged_component(
         automated_test_component_id, package_version, notes
@@ -39,6 +39,7 @@ for release in releases["pipelines"]:
             f"Automation test for {process_name}. Error message: {execution_response['message']}"
         )
 
-    boomi_cicd.create_deployed_package(release, package_id, environment_id)
-
+    output = boomi_cicd.create_deployed_package(release, package_id, environment_id)
+    print(f"Delete Deployment Response: {output}")
+    
     boomi_cicd.delete_deployed_package(automated_test_deploymentId)
