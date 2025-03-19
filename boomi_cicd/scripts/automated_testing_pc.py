@@ -5,6 +5,7 @@ import uuid
 releases = boomi_cicd.set_release()
 
 environment_name = boomi_cicd.ENVIRONMENT_NAME
+print(f"Deploying to environment: {environment_name}")
 environment_id = boomi_cicd.query_environment(environment_name)
 atom_id = boomi_cicd.query_atom(boomi_cicd.ATOM_NAME)
 
