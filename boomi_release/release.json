@@ -1,14 +1,8 @@
 {
   "pipelines": [
     {
-      "processName": "[Main]-Child-v1",
-      "packageVersion": "14-03-2025-R8", 
-      "componentId": "576b65e6-73ff-4b90-a3b4-ceba0ae84c76",
-      "notes": "test", 
-      "listenerStatus": "RUNNING", 
       "automatedTestId": "e85919ec-14d0-47b3-886d-32004f4b4da6",
-      "folderFullPath": "Training-Darko-Mirchevski/Root/Parent/Child",
-      "packageId" : "7feee466-a86e-4d14-b42c-4b883b0f607a" 
+      "packageId" : "6d6b516d-64d8-4b2c-925c-b90436781da0" 
     }
   ]
 }
