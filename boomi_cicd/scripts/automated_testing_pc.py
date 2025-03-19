@@ -12,7 +12,7 @@ atom_id = boomi_cicd.query_atom(boomi_cicd.ATOM_NAME)
 for release in releases["pipelines"]:
     package_id = release.get("packageId")
 
-    if environment_name.lower() == "Test":
+    if environment_name.lower() == "test":
         automated_test_component_id = release["automatedTestId"]
         package_version = str(uuid.uuid4())
         notes = "Automated Test"
