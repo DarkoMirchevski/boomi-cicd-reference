@@ -1,5 +1,6 @@
 
 import boomi_cicd
+import uuid
 
 
 # Open release json
@@ -9,11 +10,9 @@ environment_id = boomi_cicd.query_environment(boomi_cicd.ENVIRONMENT_NAME)
 atom_id = boomi_cicd.query_atom(boomi_cicd.ATOM_NAME)
 
 for release in releases["pipelines"]:
-    process_name = release["processName"]
-    component_id = release["componentId"]
     automated_test_component_id = release["automatedTestId"]
-    package_version = release["packageVersion"]
-    notes = release.get("notes")
+    package_version = str(uuid.uuid4())
+    notes = "Automated Test"
     package_id = release.get("packageId")
 
     automated_test_package_id = boomi_cicd.create_packaged_component(
@@ -36,7 +35,7 @@ for release in releases["pipelines"]:
     # Raise an exception if the status of the execution is anything other than COMPLETE
     if execution_response["status"] != "COMPLETE":
         raise AssertionError(
-            f"Automation test for {process_name}. Error message: {execution_response['message']}"
+            f"Automation test failed. Error message: {execution_response['message']}"
         )
     boomi_cicd.delete_deployed_package(automated_test_deploymentId)
     
