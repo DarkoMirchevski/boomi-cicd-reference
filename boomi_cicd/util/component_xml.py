@@ -147,8 +147,8 @@ def process_component(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
         repo.git.mv(
-            f"{component_refs[component_info_id]}",
-            f"{component_file_name}",
+            f'"{component_refs[component_info_id]}"',
+            f'"{component_file_name}"',
         )
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
