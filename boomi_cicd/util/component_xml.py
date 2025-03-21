@@ -148,9 +148,8 @@ def process_component(
             print(file)
             
         repo.git.mv(
-            component_refs[component_info_id],
-            component_file_name,
-            cwd=process_base_dir  # Setting the working directory here
+            f"{os.path.join(process_base_dir, component_refs[component_info_id])}",
+            f"{os.path.join(process_base_dir, component_file_name)}"
         )
         
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
