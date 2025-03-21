@@ -145,10 +145,9 @@ def process_component(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
         
-        # Ensure paths are quoted properly to handle spaces or special characters
         try:
-            # Git mv with quoted paths
-            repo.git.mv(f'"{source_file}"', f'"{destination_file}"')
+            # Remove any extra quotes around the paths
+            repo.git.mv(source_file, destination_file)
         except Exception as e:
             logger.error(f"Error during git mv: {e}")
 
@@ -157,11 +156,11 @@ def process_component(
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
     # Check if the file exists before trying to delete
-    unused_file = f"{process_name}/{component_refs.get(component_info_id)}"
+    unused_file = os.path.join(process_name, component_refs.get(component_info_id))
     if os.path.exists(unused_file):
         try:
-            # Git rm with quoted paths
-            repo.git.rm(f'"{unused_file}"')
+            # Git rm with the correct path format
+            repo.git.rm(unused_file)
         except Exception as e:
             logger.error(f"Error during git rm: {e}")
     
