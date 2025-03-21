@@ -8,7 +8,37 @@ from defusedxml import minidom
 
 import boomi_cicd
 from boomi_cicd import logger
+from git import Repo, GitCommandError
 
+def clean_target_folder(folder_path):
+    """
+    Remove existing files in the target folder but keep the nested folder structure intact.
+    """
+    if os.path.exists(folder_path):
+        for item in os.listdir(folder_path):
+            item_path = os.path.join(folder_path, item)
+            if os.path.isfile(item_path):
+                os.remove(item_path)
+                logger.info(f"Removed existing file: {item_path}")
+
+def rename_component_folder(repo, file_components, component_id, process_name):
+    """
+    Rename a component folder in the Git repository.
+    """
+    if component_id in file_components:
+        old_name = file_components[component_id]
+        old_path = os.path.join(boomi_cicd.COMPONENT_REPO_NAME, old_name)
+        new_path = os.path.join(boomi_cicd.COMPONENT_REPO_NAME, process_name)
+        
+        if os.path.exists(old_path):
+            clean_target_folder(old_path)  # Remove existing files while keeping folder structure
+            try:
+                repo.git.mv(old_path, new_path)
+                logger.info(f"Renamed component folder: {old_path} -> {new_path}")
+            except GitCommandError as e:
+                logger.error(f"Failed to rename folder: {e}")
+    
+    file_components[component_id] = process_name
 
 def process_git_release(repo, file_components, release):
     """
@@ -63,26 +93,6 @@ def clone_repository():
     repo = Repo.clone_from(boomi_cicd.COMPONENT_GIT_URL, boomi_cicd.COMPONENT_REPO_NAME)
     logger.info(f"Git Repo Status: {repo.git.status()}".replace("\n", " "))
     return repo
-
-
-def rename_component_folder(repo, file_components, component_id, process_name):
-    """
-    Rename the component folder if the process name has changed.
-    :param repo: Boomi Component Repository
-    :param file_components: The base name/value pair for the component name and component ID.
-    :param component_id: The component ID.
-    :param process_name: The process name.
-    :return: None.
-    """
-    if (
-        component_id in file_components
-        and process_name != file_components[component_id]
-    ):
-        logger.info(
-            f"Process name changed. Original: {file_components[component_id]}. New: {process_name}"
-        )
-        repo.git.mv(f"{file_components[component_id]}", f"{process_name}")
-        file_components[component_id] = process_name
 
 
 def get_component_refs(process_base_dir):
