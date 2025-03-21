@@ -3,7 +3,7 @@ name: Boomi CICD Deployments
 on:
   push:
     branches:
-    - main
+    - bugfix/EIE-1366-Path2
 
 jobs:
 
