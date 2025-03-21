@@ -140,8 +140,8 @@ def process_component(
         print(f"Current working directory: {current_dir}")
 
         repo.git.mv(
-            f'"{component_refs[component_info_id]}"',
-            f'"{component_file_name}"',
+            f"{os.path.join(process_base_dir, component_refs[component_info_id])}",
+            f"{os.path.join(process_base_dir, component_file_name)}",
         )
         
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
