@@ -129,6 +129,16 @@ def process_component(
     logger.info(
             f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}"
         )
+    # AddLog the full path of the v1 file to verify its existence
+    v1_file_path = os.path.join(process_base_dir, f"[Main]-Child-v1.xml")
+    logger.info(f"Checking if '[Main]-Child-v1.xml' exists at: {v1_file_path}")
+    
+    # Check if the file exists and log the result
+    if os.path.isfile(v1_file_path):
+        logger.info(f"File '[Main]-Child-v1.xml' found at: {v1_file_path}")
+    else:
+        logger.error(f"File '[Main]-Child-v1.xml' not found at: {v1_file_path}")
+    # End    
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
