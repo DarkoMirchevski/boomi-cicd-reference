@@ -129,12 +129,6 @@ def process_component(
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
     
-    # Ensure process directory exists in the GitHub repo
-    process_dir_path = os.path.join(process_base_dir, process_name)
-    os.makedirs(process_dir_path, exist_ok=True)
-    logger.info(
-            f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}"
-        )
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
@@ -143,8 +137,8 @@ def process_component(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
         repo.git.mv(
-            f"{process_name}/{component_refs[component_info_id]}",
-            f"{process_name}/{component_file_name}",
+            f"{component_refs[component_info_id]}",
+            f"{component_file_name}",
         )
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
