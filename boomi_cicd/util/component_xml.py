@@ -136,6 +136,8 @@ def process_component(
         logger.info(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
+        current_dir = os.getcwd()
+        print(f"Current working directory: {current_dir}")
         repo.git.mv(
             f"{component_refs[component_info_id].replace(' ', '\ ')}",
             f"{component_file_name.replace(' ', '\ ')}",
