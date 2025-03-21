@@ -119,56 +119,38 @@ def get_component_info_from_manifest(packaged_manifest):
 def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
-    """
-    Processes a component, updates its XML file, and handles its renaming if needed.
-
-    Args:
-        repo: The git repository object.
-        process_base_dir: The base directory where process files are located.
-        component_info_id: Unique identifier for the component.
-        component_refs: Dictionary holding references to existing component files.
-        process_name: The name of the process where the component belongs.
-    """
     logger.info(
-        f"Processing component: repo={repo}, process_base_dir={process_base_dir}, "
-        f"component_info_id={component_info_id}, component_refs={component_refs}, process_name={process_name}"
-    )
-
-    # Query the component using the provided component_info_id
+            f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
+        )
+    #Append "/das" to process_base_dir
+    #process_base_dir = os.path.join(process_base_dir, "das")
+    
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
     
-    # Construct the directory path for the process
-    process_dir_path = process_base_dir
+    # Ensure process directory exists in the GitHub repo
+    process_dir_path = os.path.join(process_base_dir, process_name)
     os.makedirs(process_dir_path, exist_ok=True)
-    logger.info(f"Created process directory path: {process_dir_path}")
-
-    # Check if the component file name has changed
+    logger.info(
+            f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}"
+        )
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
     ):
-        # If the component's file name has changed, rename the old file in the Git repository
         logger.info(
-            f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_file_name}"
+            f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
-        try:
-            repo.git.mv(
-                os.path.join(process_name, component_refs[component_info_id]),
-                os.path.join(process_name, component_file_name),
-            )
-        except Exception as e:
-            logger.error(f"Failed to rename component file: {e}")
-            raise
+        repo.git.mv(
+            f"{process_name}/{component_refs[component_info_id]}",
+            f"{process_name}/{component_file_name}",
+        )
 
-    # Write the updated XML content to the new component file
-    with open(os.path.join(process_base_dir, component_file_name), "w") as f:
+    with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
-    # Update the component reference in the dictionary
     component_refs[component_info_id] = component_file_name
-
     return component_file_name
 
 
