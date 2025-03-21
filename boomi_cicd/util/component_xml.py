@@ -138,10 +138,18 @@ def process_component(
         )
         current_dir = os.getcwd()
         print(f"Current working directory: {current_dir}")
-
+        
+        os.chdir(process_base_dir)
+        print(f"Changed to directory: {os.getcwd()}")
+        files_in_dir = os.listdir(os.getcwd())
+        
+        print("Files in the current directory:")
+        for file in files_in_dir:
+            print(file)
+            
         repo.git.mv(
-            f"{os.path.join(process_base_dir, component_refs[component_info_id])}",
-            f"{os.path.join(process_base_dir, component_file_name)}",
+            f"{component_refs[component_info_id]}",
+            f"{component_file_name}",
         )
         
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
