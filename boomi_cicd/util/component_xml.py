@@ -114,11 +114,9 @@ def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
     logger.info(
-            f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
-        )
-    #Append "/das" to process_base_dir
-    #process_base_dir = os.path.join(process_base_dir, "das")
-    
+        f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
+    )
+
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
@@ -126,19 +124,19 @@ def process_component(
     # Ensure process directory exists in the GitHub repo
     process_dir_path = os.path.join(process_base_dir, process_name)
     os.makedirs(process_dir_path, exist_ok=True)
-    logger.info(
-            f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}"
-        )
-    # AddLog the full path of the v1 file to verify its existence
-    v1_file_path = os.path.join(process_base_dir, f"[Main]-Child-v1.xml")
-    logger.info(f"Checking if '[Main]-Child-v1.xml' exists at: {v1_file_path}")
+    logger.info(f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}")
     
-    # Check if the file exists and log the result
-    if os.path.isfile(v1_file_path):
-        logger.info(f"File '[Main]-Child-v1.xml' found at: {v1_file_path}")
-    else:
-        logger.error(f"File '[Main]-Child-v1.xml' not found at: {v1_file_path}")
-    # End    
+    # Log the current working directory to verify the Git context
+    logger.info(f"Current working directory: {os.getcwd()}")
+
+    # Full paths for debugging
+    source_file = os.path.join(process_base_dir, component_refs.get(component_info_id, ""))
+    destination_file = os.path.join(process_base_dir, component_file_name)
+
+    # Log full paths of the files
+    logger.info(f"Source file path: {source_file}")
+    logger.info(f"Destination file path: {destination_file}")
+    
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
@@ -146,10 +144,12 @@ def process_component(
         logger.info(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
-        repo.git.mv(
-            component_refs[component_info_id],
-            component_file_name,
-        )
+        
+        # Run the git move command with the full paths
+        try:
+            repo.git.mv(source_file, destination_file)
+        except Exception as e:
+            logger.error(f"Error during git mv: {e}")
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
