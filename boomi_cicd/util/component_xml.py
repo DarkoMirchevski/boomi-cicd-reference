@@ -140,7 +140,7 @@ def process_component(
     component_file_name = f"{component_name}.xml"
     
     # Construct the directory path for the process
-    process_dir_path = os.path.join(process_base_dir, process_name)
+    process_dir_path = process_base_dir
     os.makedirs(process_dir_path, exist_ok=True)
     logger.info(f"Created process directory path: {process_dir_path}")
 
