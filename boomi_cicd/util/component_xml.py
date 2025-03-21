@@ -8,6 +8,13 @@ from defusedxml import minidom
 
 import boomi_cicd
 from boomi_cicd import logger
+import logging
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 def process_git_release(repo, file_components, release):
     """
@@ -109,62 +116,59 @@ def get_component_info_from_manifest(packaged_manifest):
     root = ET.fromstring(packaged_manifest)
     return root.findall(".//bns:componentInfo", boomi_cicd.NAMESPACES)
 
-
 def process_component(
     repo, process_base_dir, component_info_id, component_refs, process_name
 ):
+    """
+    Processes a component, updates its XML file, and handles its renaming if needed.
+
+    Args:
+        repo: The git repository object.
+        process_base_dir: The base directory where process files are located.
+        component_info_id: Unique identifier for the component.
+        component_refs: Dictionary holding references to existing component files.
+        process_name: The name of the process where the component belongs.
+    """
     logger.info(
-        f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
+        f"Processing component: repo={repo}, process_base_dir={process_base_dir}, "
+        f"component_info_id={component_info_id}, component_refs={component_refs}, process_name={process_name}"
     )
 
+    # Query the component using the provided component_info_id
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
     
-    # Ensure process directory exists in the GitHub repo
+    # Construct the directory path for the process
     process_dir_path = os.path.join(process_base_dir, process_name)
     os.makedirs(process_dir_path, exist_ok=True)
-    logger.info(f"process_dir_path: {process_dir_path}. process_base_dir: {process_base_dir}")
-    
-    # Log the current working directory to verify the Git context
-    logger.info(f"Current working directory: {os.getcwd()}")
+    logger.info(f"Created process directory path: {process_dir_path}")
 
-    # Full paths for debugging
-    source_file = os.path.join(process_base_dir, component_refs.get(component_info_id, ""))
-    destination_file = os.path.join(process_base_dir, component_file_name)
-
-    # Log full paths of the files
-    logger.info(f"Source file path: {source_file}")
-    logger.info(f"Destination file path: {destination_file}")
-    
+    # Check if the component file name has changed
     if (
         component_info_id in component_refs
         and component_file_name != component_refs[component_info_id]
     ):
+        # If the component's file name has changed, rename the old file in the Git repository
         logger.info(
-            f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
+            f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_file_name}"
         )
-        
         try:
-            # Remove any extra quotes around the paths
-            repo.git.mv(source_file, destination_file)
+            repo.git.mv(
+                os.path.join(process_name, component_refs[component_info_id]),
+                os.path.join(process_name, component_file_name),
+            )
         except Exception as e:
-            logger.error(f"Error during git mv: {e}")
+            logger.error(f"Failed to rename component file: {e}")
+            raise
 
-    # Create the file with the new component content
-    with open(f"{process_base_dir}/{component_file_name}", "w") as f:
+    # Write the updated XML content to the new component file
+    with open(os.path.join(process_base_dir, component_file_name), "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
-    # Check if the file exists before trying to delete
-    unused_file = os.path.join(process_name, component_refs.get(component_info_id))
-    if os.path.exists(unused_file):
-        try:
-            # Git rm with the correct path format
-            repo.git.rm(unused_file)
-        except Exception as e:
-            logger.error(f"Error during git rm: {e}")
-    
+    # Update the component reference in the dictionary
     component_refs[component_info_id] = component_file_name
+
     return component_file_name
 
 
