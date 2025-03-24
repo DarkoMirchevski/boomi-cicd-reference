@@ -31,7 +31,8 @@ def process_git_release(repo, file_components, release):
     process_base_dir = f"Repo/{release['folderFullPath']}"
     #process_base_dir = f"{boomi_cicd.COMPONENT_REPO_NAME}/{process_name}"
     #process_base_dir = os.path.join(process_base_dir, "das")
-    logger.info(f"process_base_dir: {process_base_dir}")    
+    logger.info(f"process_base_dir: {process_base_dir}")
+    source_destination_directory = process_base_dir.replace("Repo/", "") + "/"
     # Check if the packaged component's name has changed.
     rename_component_folder(repo, file_components, component_id, process_name)
 
@@ -52,7 +53,7 @@ def process_git_release(repo, file_components, release):
         component_info_names.add(component_file_name)
 
     delete_unused_files(repo, process_base_dir, component_info_names, process_name)
-    set_component_xml_file_refs(process_base_dir, component_refs)
+    set_component_xml_file_refs(source_destination_directory, component_refs)
 
 
 def clone_repository():
