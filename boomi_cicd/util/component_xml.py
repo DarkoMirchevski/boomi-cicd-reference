@@ -148,7 +148,7 @@ def process_component(
             print(file)
 
         #repo.git.add(f"Training-Darko-Mirchevski/Root/Parent/Child/{component_file_name}")
-        repo.git.add({component_file_name})
+        repo.git.add(component_file_name)
         repo.git.mv(
             os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id]),
             os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
