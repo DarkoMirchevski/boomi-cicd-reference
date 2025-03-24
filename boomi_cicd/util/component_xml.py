@@ -146,21 +146,14 @@ def process_component(
         print("Files in the current directory:")
         for file in files_in_dir:
             print(file)
-
-        src = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id])
-        dst = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
+            
+        source_destination_directory = process_base_dir.replace("Repo/", "") + "/"
+        src = os.path.join(source_destination_directory, component_refs[component_info_id])
+        dst = os.path.join(source_destination_directory, component_file_name)
         print("Source:", src)
         print("Destination:", dst)
         repo.git.mv(src, dst)
 
-    print(f"Changed to directory: {os.getcwd()}")
-    files_in_dir = os.listdir(os.getcwd())
-    
-    print("Files in the current directory 2:")
-    for file in files_in_dir:
-        print(file)
-    #with open(f"{process_base_dir}/{component_file_name}", "w") as f:
-    #    f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
     with open(component_file_name, "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
