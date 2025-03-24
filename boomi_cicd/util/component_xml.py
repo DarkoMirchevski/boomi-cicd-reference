@@ -36,7 +36,7 @@ def process_git_release(repo, file_components, release):
     # Check if the packaged component's name has changed.
     rename_component_folder(repo, file_components, component_id, process_name)
 
-    component_refs = get_component_refs(source_destination_directory)
+    component_refs = get_component_refs(process_base_dir)
 
     packaged_component_id = boomi_cicd.query_packaged_component(
         component_id, package_version
