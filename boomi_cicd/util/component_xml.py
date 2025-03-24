@@ -147,10 +147,16 @@ def process_component(
         for file in files_in_dir:
             print(file)
             
-        repo.git.mv(
-            os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id]),
-            os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
-        )
+        old_path = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id])
+        new_path = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
+        
+        print(f"Renaming: {old_path} -> {new_path}")
+        
+        if os.path.exists(old_path):
+            repo.git.mv(old_path, new_path)
+            print(f"Renamed successfully: {new_path}")
+        else:
+            print(f"Error: {old_path} does not exist!")
         
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
