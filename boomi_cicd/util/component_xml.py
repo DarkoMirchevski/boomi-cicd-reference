@@ -147,13 +147,11 @@ def process_component(
         for file in files_in_dir:
             print(file)
 
-        #repo.git.add(f"Training-Darko-Mirchevski/Root/Parent/Child/{component_file_name}")
-        repo.git.add(component_file_name)
-        repo.git.mv(
-            os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id]),
-            os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
-        )
-        repo.git.add(f"Root/Parent/Child/{component_refs[component_info_id]}")
+        src = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id])
+        dst = os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
+        print("Source:", src)
+        print("Destination:", dst)
+        repo.git.mv(src, dst)
 
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
