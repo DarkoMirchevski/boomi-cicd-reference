@@ -161,7 +161,7 @@ def process_component(
         print(file)
     #with open(f"{process_base_dir}/{component_file_name}", "w") as f:
     #    f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
-    with open(component_file_name), "w") as f:
+    with open(component_file_name, "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
 
     component_refs[component_info_id] = component_file_name
