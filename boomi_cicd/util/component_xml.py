@@ -148,8 +148,8 @@ def process_component(
             print(file)
             
         repo.git.mv(
-            f"{os.path.join(process_base_dir, component_refs[component_info_id])}",
-            f"{os.path.join(process_base_dir, component_file_name)}"
+            f"{os.path.join("Training-Darko-Mirchevski/Root/Parent/Child/", component_refs[component_info_id])}",
+            f"{os.path.join("Training-Darko-Mirchevski/Root/Parent/Child/", component_file_name)}"
         )
         
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
