@@ -153,11 +153,10 @@ def process_component(
         print("Destination:", dst)
         repo.git.mv(src, dst)
 
-    os.chdir(process_base_dir)
     print(f"Changed to directory: {os.getcwd()}")
     files_in_dir = os.listdir(os.getcwd())
     
-    print("Files in the current directory:")
+    print("Files in the current directory 2:")
     for file in files_in_dir:
         print(file)
     #with open(f"{process_base_dir}/{component_file_name}", "w") as f:
