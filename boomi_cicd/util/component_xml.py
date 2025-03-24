@@ -151,6 +151,7 @@ def process_component(
         #    os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_refs[component_info_id]),
         #    os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name)
         #)
+        repo.git.add(f"Root/Parent/Child/{component_refs[component_info_id]}")
         repo.git.mv(
             f"Root/Parent/Child/{component_refs[component_info_id]}",
             f"Root/Parent/Child/{component_file_name}"
