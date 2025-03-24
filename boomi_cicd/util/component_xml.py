@@ -154,7 +154,14 @@ def process_component(
         repo.git.mv(src, dst)
 
 
-    files_in_dir = os.listdir(os.getcwd())
+    os.chdir(process_base_dir)
+        print(f"Changed to directory: {os.getcwd()}")
+        files_in_dir = os.listdir(os.getcwd())
+        
+        print("Files in the current directory:")
+        for file in files_in_dir:
+            print(file)
+
     #with open(f"{process_base_dir}/{component_file_name}", "w") as f:
     #    f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
     with open(os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name), "w") as f:
