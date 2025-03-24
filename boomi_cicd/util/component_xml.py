@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def process_git_release(repo, file_components, release):
-    """
+    """ 
     Process a release from the release json and update the component repository.
     This function is the main function for the component_xml_git.py script.
     :param repo: Boomi Component Repository
