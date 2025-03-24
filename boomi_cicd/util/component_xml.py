@@ -228,7 +228,7 @@ def set_component_xml_file_refs(location, file_refs):
     """
     current_dir = os.getcwd()
     print(f"Current working directory: {current_dir}")
-    with open(os.path.join(location, ".componentRef"), "w") as f:
+    with open(".componentRef", "w") as f:
         for file_ref in file_refs:
             f.write("{}={}\n".format(file_ref, file_refs[file_ref]))
 
