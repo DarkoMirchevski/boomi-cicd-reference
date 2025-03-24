@@ -154,8 +154,10 @@ def process_component(
         repo.git.mv(src, dst)
 
 
-    with open(f"{process_base_dir}/{component_file_name}", "w") as f:
-        f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
+    #with open(f"{process_base_dir}/{component_file_name}", "w") as f:
+    #    f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
+    with open(os.path.join('Training-Darko-Mirchevski/Root/Parent/Child/', component_file_name), "w") as f:
+        f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))    
 
     component_refs[component_info_id] = component_file_name
     return component_file_name
