@@ -174,6 +174,8 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
     """
     print(f"method: delete_unused_files: Repo: {repo}, Process base dir: {process_base_dir}, Component info names: {component_info_names}, Process name: {process_name}")
     for dirpath, dirnames, filenames in os.walk(process_base_dir):
+      # Only process the files in the base directory (not in subdirectories)
+      if dirpath == process_base_dir:
         for filename in filenames:
             if filename not in component_info_names and filename != ".componentRef":
                 current_dir = os.getcwd()
