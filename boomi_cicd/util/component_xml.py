@@ -178,8 +178,10 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
             if filename not in component_info_names and filename != ".componentRef":
                 current_dir = os.getcwd()
                 logger.info(f"method: delete_unused_files: Current directory: {current_dir}")
-                files_in_dir = os.listdir(current_dir)
-                logger.info(f"method: delete_unused_files: Files in {current_dir}: {files_in_dir}")
+                os.chdir("Repo")
+                current_dir = os.getcwd()
+                files_in_repo = os.listdir(current_dir)
+                logger.info(f"Moved to {current_dir}. Files: {files_in_repo}")
                 repo.git.rm(f"{process_name}/{filename}")
                 logger.info(f"Deleted {filename} from {process_name}")
 
