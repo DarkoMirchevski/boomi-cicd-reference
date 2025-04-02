@@ -172,17 +172,10 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
     :param process_name: Name of the process from the release JSON file.
     :return: None.
     """
-    print(f"method: delete_unused_files: Repo: {repo}, Process base dir: {process_base_dir}, Component info names: {component_info_names}, Process name: {process_name}")
     for dirpath, dirnames, filenames in os.walk(process_base_dir):
         for filename in filenames:
             if filename not in component_info_names and filename != ".componentRef":
-                current_dir = os.getcwd()
-                logger.info(f"method: delete_unused_files: Current directory: {current_dir}")
-                os.chdir(process_base_dir)
-                current_dir = os.getcwd()
-                files_in_process_dir = os.listdir(current_dir)
-                logger.info(f"Moved to {current_dir}. Files: {files_in_process_dir}")
-                repo.git.rm(filename)
+                repo.git.rm(f"{process_name}/{filename}")
                 logger.info(f"Deleted {filename} from {process_name}")
 
 
