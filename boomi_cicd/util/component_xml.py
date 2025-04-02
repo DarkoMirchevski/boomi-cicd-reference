@@ -200,6 +200,7 @@ def get_component_xml_file_refs(location):
                 file_refs[folder_ref_id] = folder_ref_name
     else:
         open(os.path.join(location, ".componentRef"), "w").close()
+    print(f"File references: {file_refs}")
     return file_refs
 
 
