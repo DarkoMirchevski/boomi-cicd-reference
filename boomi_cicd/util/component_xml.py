@@ -116,9 +116,6 @@ def process_component(
     logger.info(
             f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
         )
-    #Append "/das" to process_base_dir
-    #process_base_dir = os.path.join(process_base_dir, "das")
-    
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
@@ -136,6 +133,7 @@ def process_component(
         logger.info(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
+        logger.debug(f"Attempting to rename from: {process_base_dir}/{process_name}/{component_refs[component_info_id]} to {process_base_dir}/{process_name}/{component_file_name}")
         repo.git.mv(
             f"{process_name}/{component_refs[component_info_id]}",
             f"{process_name}/{component_file_name}",
