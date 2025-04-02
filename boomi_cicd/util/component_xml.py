@@ -134,10 +134,12 @@ def process_component(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
         logger.debug(f"Attempting to rename from: {process_base_dir}/{component_refs[component_info_id]} to {process_base_dir}/{component_file_name}")
-        repo.git.mv(
-            f"{process_base_dir}/{component_refs[component_info_id]}",
-            f"{process_base_dir}/{component_file_name}",
-        )
+        source_destination_directory = process_base_dir.replace("Repo/", "") + "/"
+        source_file = os.path.join(source_destination_directory, component_refs[component_info_id])
+        destination_file = os.path.join(source_destination_directory, component_file_name)
+        print("Source:", source_file)
+        print("Destination:", destination_file)
+        repo.git.mv(source_file, destination_file)
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
