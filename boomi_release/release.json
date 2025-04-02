@@ -1,13 +1,13 @@
 {
   "pipelines": [
     {
-      "processName": "[Main]-Child-v3",
-      "packageVersion": "02-04-2025-R16", 
-      "componentId": "576b65e6-73ff-4b90-a3b4-ceba0ae84c76",
+      "processName": "[Main]-Parent-v1",
+      "packageVersion": "02-04-2025-R111", 
+      "componentId": "f96f03f5-1f98-4575-8aa9-1162093014cf",
       "notes": "test",
       "listenerStatus": "RUNNING",
       "automatedTestId": "e85919ec-14d0-47b3-886d-32004f4b4da6",
-      "folderFullPath": "Training-Darko-Mirchevski/Root/Parent/Child"
+      "folderFullPath": "Training-Darko-Mirchevski/Root/Parent"
     }
   ]
 }
