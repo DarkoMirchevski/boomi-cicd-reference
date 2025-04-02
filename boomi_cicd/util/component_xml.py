@@ -182,8 +182,8 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
                 current_dir = os.getcwd()
                 files_in_process_dir = os.listdir(current_dir)
                 logger.info(f"Moved to {current_dir}. Files: {files_in_process_dir}")
-                repo.git.rm(filename)
-                logger.info(f"Deleted {filename} from {process_name}")
+                repo.git.rm(f"{process_base_dir}/{filename}")
+                logger.info(f"Deleted {filename} from {process_base_dir}")
 
 
 def get_component_xml_file_refs(location):
