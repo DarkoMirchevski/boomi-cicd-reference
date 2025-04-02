@@ -8,7 +8,7 @@ from defusedxml import minidom
 
 import boomi_cicd
 from boomi_cicd import logger
-
+ 
 def process_git_release(repo, file_components, release):
     """
     Process a release from the release json and update the component repository.
