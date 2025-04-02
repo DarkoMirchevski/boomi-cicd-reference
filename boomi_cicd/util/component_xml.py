@@ -172,6 +172,7 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
     :param process_name: Name of the process from the release JSON file.
     :return: None.
     """
+    print(f"method: delete_unused_files: Repo: {repo}, Process base dir: {process_base_dir}, Component info names: {component_info_names}, Process name: {process_name}")
     for dirpath, dirnames, filenames in os.walk(process_base_dir):
         for filename in filenames:
             if filename not in component_info_names and filename != ".componentRef":
