@@ -182,8 +182,16 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
                 current_dir = os.getcwd()
                 files_in_process_dir = os.listdir(current_dir)
                 logger.info(f"Moved to {current_dir}. Files: {files_in_process_dir}")
-                repo.git.rm(f"{process_base_dir}/{filename}")
-                logger.info(f"Deleted {filename} from {process_base_dir}")
+
+                # Construct the relative path correctly
+                file_path = os.path.relpath(os.path.join(dirpath, filename), repo.working_dir)
+                logger.info(f"Attempting to delete file: {file_path}")
+
+                try:
+                    repo.git.rm(file_path)
+                    logger.info(f"Deleted {file_path} from {process_base_dir}")
+                except Exception as e:
+                    logger.error(f"Failed to delete {file_path}. Error: {e}")
 
 
 def get_component_xml_file_refs(location):
