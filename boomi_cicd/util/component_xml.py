@@ -116,9 +116,7 @@ def process_component(
     logger.info(
             f"repo: {repo}, process_base_dir: {process_base_dir}, component_info_id: {component_info_id}, component_refs: {component_refs}, process_name: {process_name}"
         )
-    #Append "/das" to process_base_dir
-    #process_base_dir = os.path.join(process_base_dir, "das")
-    
+
     component_xml = boomi_cicd.query_component(component_info_id)
     component_name = ET.fromstring(component_xml).attrib["name"]
     component_file_name = f"{component_name}.xml"
@@ -136,10 +134,13 @@ def process_component(
         logger.info(
             f"Component name changed. Original: {component_refs[component_info_id]}. New: {component_name}"
         )
-        repo.git.mv(
-            f"{process_name}/{component_refs[component_info_id]}",
-            f"{process_name}/{component_file_name}",
-        )
+        logger.debug(f"Attempting to rename from: {process_base_dir}/{component_refs[component_info_id]} to {process_base_dir}/{component_file_name}")
+        source_destination_directory = process_base_dir.replace("Repo/", "") + "/"
+        source_file = os.path.join(source_destination_directory, component_refs[component_info_id])
+        destination_file = os.path.join(source_destination_directory, component_file_name)
+        print("Source:", source_file)
+        print("Destination:", destination_file)
+        repo.git.mv(source_file, destination_file)
 
     with open(f"{process_base_dir}/{component_file_name}", "w") as f:
         f.write(minidom.parseString(component_xml).toprettyxml(indent="  "))
@@ -172,11 +173,24 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
     :param process_name: Name of the process from the release JSON file.
     :return: None.
     """
+    print(f"method: delete_unused_files: Repo: {repo}, Process base dir: {process_base_dir}, Component info names: {component_info_names}, Process name: {process_name}")
     for dirpath, dirnames, filenames in os.walk(process_base_dir):
+      # Only process the files in the base directory (not in subdirectories)
+      if dirpath == process_base_dir:
         for filename in filenames:
             if filename not in component_info_names and filename != ".componentRef":
-                repo.git.rm(f"{process_name}/{filename}")
-                logger.info(f"Deleted {filename} from {process_name}")
+                current_dir = os.getcwd()
+                logger.info(f"method: delete_unused_files: Current directory: {current_dir}")
+                
+                # Construct the correct relative file path from the repo root
+                file_path = os.path.relpath(os.path.join(dirpath, filename), repo.working_dir)
+                logger.info(f"Attempting to delete file: {file_path}")
+
+                try:
+                    repo.git.rm(file_path)
+                    logger.info(f"Deleted {file_path} from {process_base_dir}")
+                except Exception as e:
+                    logger.error(f"Failed to delete {file_path}. Error: {e}")
 
 
 def get_component_xml_file_refs(location):
