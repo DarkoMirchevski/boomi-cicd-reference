@@ -173,24 +173,18 @@ def delete_unused_files(repo, process_base_dir, component_info_names, process_na
     :param process_name: Name of the process from the release JSON file.
     :return: None.
     """
-    print(f"method: delete_unused_files: Repo: {repo}, Process base dir: {process_base_dir}, Component info names: {component_info_names}, Process name: {process_name}")
-    for dirpath, dirnames, filenames in os.walk(process_base_dir):
-      # Only process the files in the base directory (not in subdirectories)
-      if dirpath == process_base_dir:
-        for filename in filenames:
-            if filename not in component_info_names and filename != ".componentRef":
-                current_dir = os.getcwd()
-                logger.info(f"method: delete_unused_files: Current directory: {current_dir}")
-                
-                # Construct the correct relative file path from the repo root
-                file_path = os.path.relpath(os.path.join(dirpath, filename), repo.working_dir)
-                logger.info(f"Attempting to delete file: {file_path}")
+    filenames = os.listdir(process_base_dir)
 
-                try:
-                    repo.git.rm(file_path)
-                    logger.info(f"Deleted {file_path} from {process_base_dir}")
-                except Exception as e:
-                    logger.error(f"Failed to delete {file_path}. Error: {e}")
+    for filename in filenames:
+        if filename not in component_info_names and filename != ".componentRef":
+            file_path = os.path.relpath(os.path.join(process_base_dir, filename), repo.working_dir)
+            logger.info(f"Attempting to delete file: {file_path}")
+    
+            try:
+                repo.git.rm(file_path)
+                logger.info(f"Deleted {file_path} from {process_base_dir}")
+            except Exception as e:
+                logger.error(f"Failed to delete {file_path}. Error: {e}")
 
 
 def get_component_xml_file_refs(location):
