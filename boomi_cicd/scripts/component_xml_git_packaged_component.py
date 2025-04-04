@@ -38,6 +38,8 @@ print(f"Compnent XML: {componentxml}")
 # Get parent folder name and component ID mapping
 #file_components = boomi_cicd.get_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME)
 
+# Open release json
+releases = boomi_cicd.set_release()
 
 # Process each release to update the Git repository with the component XMLs
 for release in releases["pipelines"]:
