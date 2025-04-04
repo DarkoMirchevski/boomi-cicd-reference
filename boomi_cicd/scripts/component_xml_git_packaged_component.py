@@ -24,5 +24,5 @@ package = get_packaged_component(packaged_component_id)
 
 logging.info(f"Retrieved package: {package}")
 
-component_id = json.loads(package).get("componentId")
+component_id = package.get("componentId")
 print(f"Component ID: {component_id}")
