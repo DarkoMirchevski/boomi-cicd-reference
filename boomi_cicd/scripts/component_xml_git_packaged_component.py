@@ -53,13 +53,16 @@ for release in releases["pipelines"]:
     root = ET.fromstring(componentxml)
     
     # Find the 'name' attribute in the component XML
-    process_name = root.attrib.get('name')
-    print("Process name:", process_name)
+    processName = root.attrib.get('name')
+    folderFullPath = root.attrib.get('folderFullPath')
+    print("Process name:", processName)
+    print("folderFullPath:", folderFullPath)
 
-    release["processName"] = process_name
+    release["processName"] = processName
 
     print("packageVersion:", package.get("packageVersion"))
     release["packageVersion"] = package.get("packageVersion")
+    release["folderFullPath"] = folderFullPath
     #boomi_cicd.process_git_release(repo, file_components, release)
 
 # Save the updated component references
