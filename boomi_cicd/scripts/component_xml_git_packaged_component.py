@@ -17,7 +17,7 @@ def get_packaged_component(packaged_component_id):
     """
     resource_path = f"/PackagedComponent/{packaged_component_id}"
     response = boomi_cicd.requests_get(resource_path)
-    return response
+    return response.json()
 
 packaged_component_id = "4bb49b73-9dd9-4e4c-a482-ceb774c03763"
 package = get_packaged_component(packaged_component_id)
