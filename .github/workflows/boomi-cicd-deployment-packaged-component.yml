@@ -3,7 +3,7 @@ name: Boomi CICD Deployments
 on:
   push:
     branches:
-    - mainpc
+    - mainpc-test
 
 jobs:
 
@@ -56,28 +56,12 @@ jobs:
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           pip install -r ./requirements.txt
            
-      - name: Deployment
+      - name: Store Components XML
         run: | 
           cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           export PYTHONPATH=$(pwd)
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
-          python3.11 boomi_cicd/scripts/automated_testing_pc.py
-        
-      - name: Update Environment Extensions
-        env:
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-        run: |
-          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
-          export PYTHONPATH=$(pwd)
-          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
-          export BOOMI_ENV_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_ENV_RELEASE_FILE}
-
-          # Use jq to inject the DatabasePassword dynamically
-          jq '.properties.property |= map(if .name == "SnowflakePassword" then .value = env.SNOWFLAKE_PASSWORD else . end)' \
-            $BOOMI_ENV_RELEASE_FILE > temp.json
-          mv temp.json $BOOMI_ENV_RELEASE_FILE
-
-          python3.11 boomi_cicd/scripts/environment_extensions_update.py
+          python3.11 boomi_cicd/scripts/component_xml_git_packaged_component.py
 
   production:
     name: Production Deployment
