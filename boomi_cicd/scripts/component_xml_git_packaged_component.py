@@ -1,4 +1,6 @@
 import logging
+import boomi_cicd
+
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
