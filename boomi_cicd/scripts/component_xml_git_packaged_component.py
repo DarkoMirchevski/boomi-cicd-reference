@@ -23,3 +23,6 @@ packaged_component_id = "4bb49b73-9dd9-4e4c-a482-ceb774c03763"
 package = get_packaged_component(packaged_component_id)
 
 logging.info(f"Retrieved package: {package}")
+
+component_id = json.loads(response.text).get("componentId")
+print(f"Component ID: {component_id}")
