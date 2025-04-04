@@ -56,7 +56,7 @@ for release in releases["pipelines"]:
     process_name = root.attrib.get('name')
     print("Process name:", process_name)
 
-    release["processName"] = release["processName"]
+    release["processName"] = process_name
 
     print("packageVersion:", package.get("packageVersion"))
     release["packageVersion"] = package.get("packageVersion")
