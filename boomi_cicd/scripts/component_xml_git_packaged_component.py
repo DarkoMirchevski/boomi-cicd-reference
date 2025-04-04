@@ -26,3 +26,7 @@ logging.info(f"Retrieved package: {package}")
 
 component_id = package.get("componentId")
 print(f"Component ID: {component_id}")
+
+
+componentxml = boomi_cicd.query_component(component_id)
+print(f"Compnent XML: {componentxml}")
