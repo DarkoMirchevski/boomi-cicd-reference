@@ -50,7 +50,7 @@ for release in releases["pipelines"]:
     release["componentId"] = package.get("componentId")
 
     # Parse the XML string
-    root = ET.fromstring(component_xml)
+    root = ET.fromstring(componentxml)
     
     # Find the 'name' attribute in the component XML
     process_name = root.attrib.get('name')
