@@ -2,7 +2,7 @@
   "pipelines": [
     {
       "automatedTestId": "e85919ec-14d0-47b3-886d-32004f4b4da6",
-      "packageId" : "2bcf40bd-c556-454b-81f0-08c887ce0363",
+      "packageId" : "adf00c98-8282-42c4-9234-233ff15920b9",
       "notes" : "test a"
     }
   ]
