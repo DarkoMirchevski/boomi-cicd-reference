@@ -79,7 +79,7 @@ jobs:
         
       - name: Update Environment Extensions
         run: |
-          cd ${GITHUB_WORKSPACE}/chg-boomi-cicd-tool
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
           export PYTHONPATH=$(pwd)
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
           export BOOMI_ENV_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_ENV_RELEASE_FILE}
