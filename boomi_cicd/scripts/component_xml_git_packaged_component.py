@@ -33,10 +33,10 @@ print(f"Compnent XML: {componentxml}")
 
 
 # Clone repo
-#repo = boomi_cicd.clone_repository()
+repo = boomi_cicd.clone_repository()
 
 # Get parent folder name and component ID mapping
-#file_components = boomi_cicd.get_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME)
+file_components = boomi_cicd.get_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME)
 
 # Open release json
 releases = boomi_cicd.set_release()
@@ -63,10 +63,10 @@ for release in releases["pipelines"]:
     print("packageVersion:", package.get("packageVersion"))
     release["packageVersion"] = package.get("packageVersion")
     release["folderFullPath"] = folderFullPath
-    #boomi_cicd.process_git_release(repo, file_components, release)
+    boomi_cicd.process_git_release(repo, file_components, release)
 
 # Save the updated component references
-#boomi_cicd.set_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME, file_components)
+boomi_cicd.set_component_xml_file_refs(boomi_cicd.COMPONENT_REPO_NAME, file_components)
 
 # Commit and push changes
-#boomi_cicd.commit_and_push(repo)
+boomi_cicd.commit_and_push(repo)
