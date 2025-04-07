@@ -5,6 +5,7 @@ from boomi_cicd import logger
 import sys
 import json
 import logging
+import xml.etree.ElementTree as ET
 
 from lxml import etree
 
