@@ -5,13 +5,6 @@ import xml.etree.ElementTree as ET
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-
-package = boomi_cicd.get_packaged_component(packaged_component_id)
-component_id = package.get("componentId")
-componentxml = boomi_cicd.query_component(component_id)
-
-
-
 # Clone repo
 repo = boomi_cicd.clone_repository()
 
