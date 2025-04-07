@@ -124,8 +124,19 @@ logger = logging.getLogger(__name__)
 # Read release data
 releases = boomi_cicd.set_release()
 
-# Extract all folder paths into a set and format them with slashes
-fullfolderpaths = {f"/{release['folderFullPath']}/" for release in releases["pipelines"]}
+# Extract all folder paths into a set using Boomi API to get the XML
+fullfolderpaths = set()
+
+for release in releases["pipelines"]:
+    component_id = release["componentId"]
+    componentxml = boomi_cicd.query_component(component_id)
+
+    # Parse the XML string
+    root = ET.fromstring(componentxml)
+    folder_path = root.attrib.get("folderFullPath")
+    
+    if folder_path:
+        fullfolderpaths.add(f"/{folder_path}/")
 
 # Check report file
 report_path = "Report/report.md"
