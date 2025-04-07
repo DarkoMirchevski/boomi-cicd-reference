@@ -145,7 +145,7 @@ releases = boomi_cicd.set_release()
 fullfolderpaths = set()
 
 for release in releases["pipelines"]:
-    packaged_component_id = "4bb49b73-9dd9-4e4c-a482-ceb774c03763"
+    packaged_component_id = "c52b35c5-3a74-4e67-88b9-ba80c1ff840f"
     package = get_packaged_component(packaged_component_id)
     component_id = package.get("componentId")
     componentxml = boomi_cicd.query_component(component_id)
