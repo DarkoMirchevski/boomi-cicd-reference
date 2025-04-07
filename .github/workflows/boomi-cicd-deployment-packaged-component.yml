@@ -63,6 +63,13 @@ jobs:
           export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
           python3.11 boomi_cicd/scripts/component_xml_git_packaged_component.py
 
+      - name: Code Validation
+        run: | 
+          cd ${GITHUB_WORKSPACE}/boomi-cicd-reference
+          export PYTHONPATH=$(pwd)
+          export BOOMI_RELEASE_FILE=${GITHUB_WORKSPACE}/${BOOMI_RELEASE_FILE}
+          python3.11 boomi_cicd/scripts/component_xml_code_quality.py
+
   production:
     name: Production Deployment
     runs-on: ubuntu-latest
