@@ -8,8 +8,7 @@ on:
       - hotfix/*
   
   pull_request:
-    branches:
-      - mainpc    
+    branches: [ mainpc ]
 
 permissions:
   contents: read
