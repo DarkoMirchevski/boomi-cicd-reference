@@ -36,7 +36,7 @@ def parse_repository_info() -> Tuple[str, str, str]:
         raise ValueError(f"Invalid repository format: {repository}")
     
     branch = ref.replace("refs/heads/", "")
-    
+    print(f"✅ ref TODO: {ref} TODO")
     return owner, repo, branch
 
 
