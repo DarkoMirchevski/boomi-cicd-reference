@@ -7,6 +7,10 @@ on:
       - bugfix/*
       - hotfix/*
 
+  pull_request:
+    branches:
+      - mainpc 
+      
 permissions:
   contents: read
   pull-requests: write
